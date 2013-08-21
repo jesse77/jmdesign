@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>Bootstrap - Lightbox</title>
+  <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-lightbox.min.css">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+
+  <!-- -->
+  <div class="example">
+    <ul class="thumbnails">
+      <li class="span2">
+        <a data-toggle="lightbox" href="#demoLightbox" class="thumbnail">
+          <img src="images/gallery/thumbnails/002.jpg" alt="Click to view the lightbox">
+        </a>
+      </li>
+    </ul>
+    <div id="demoLightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+      <div class='lightbox-content'>
+        <img src="images/feat/001.jpg">
+        <div class="lightbox-caption"><p>Your caption here</p></div>
+      </div>
+    </div>
+  </div>
+  <!-- -->
+
+
+  <a data-toggle="lightbox" href="#demoLightbox">Open Lightbox</a>
+<div id="demoLightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class='lightbox-header'>
+        <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+    </div>
+    <div class='lightbox-content'>
+        <img src="image.png">
+    </div>
+    <div class='lightbox-footer'>
+        <button class="btn btn-small btn-primary">Click</button>
+    </div>
+</div>
+
+  <script src="bootstrap/assets/js/jquery.js"></script>
+ 
+  
+  <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-lightbox.min.js"></script>
+  
+  
+</body>
+</html>

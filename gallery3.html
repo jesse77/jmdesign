@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="">
+   <meta name="author" content="">
+
+   <title>JMDesiGN</title>
+
+   <!-- Bootstrap core CSS -->
+   <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+   <!-- Custom styles for this template -->
+   
+
+   <link href="css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
+   <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+
+<link href="css/gallery.css" type="text/css" rel="stylesheet">
+
+
+
+
+
+
+
+        
+        <style type="text/css" id="bsCss">
+        /* override bootstrap styles */
+        .modal-dialog {width:100%;}
+.thumbnail {margin-bottom:6px;}
+
+        </style>
+    </head>
+    <body  >
+        <div class="container">
+  <div class="row">
+    <h1>Bootstrap 3 Lightbox using Modal</h1>
+    <div class="row">
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 1"><img src="images/carousel/slide001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 2"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 3"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 4"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 5"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 6"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 8"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 9"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 10"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 11"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 12"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+      <div class="col-lg-3 col-sm-4 col-6"><a href="#" title="Image 13"><img src="images/feat/001.jpg" class="thumbnail img-responsive"></a></div>
+    </div>
+    <hr>
+    <a href="http://bootply.com/71401">Edit on Bootply</a>
+    <hr>
+  </div>
+</div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3 class="modal-title">Heading</h3>
+	</div>
+	<div class="modal-body">
+		
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+   </div>
+  </div>
+</div>
+
+
+        
+        <script type='text/javascript' src="js/jquery.js"></script>
+    
+    
+        <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+
+        <!-- <script type='text/javascript' src="bootstrap/dist/js/bootstrap.min.js"></script> NOT WORKING -->
+    
+    
+    
+        <script type='text/javascript' id="bsJs">
+        
+        $(document).ready(function() {
+        
+            $('.thumbnail').click(function(){
+  	$('.modal-body').empty();
+  	var title = $(this).parent('a').attr("title");
+  	$('.modal-title').html(title);
+  	$($(this).parents('div').html()).appendTo('.modal-body');
+  	$('#myModal').modal({show:true});
+});
+        
+        });
+        
+        </script>
+        
+    </body>
+    
+</html>
