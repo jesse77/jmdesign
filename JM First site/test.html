@@ -1,0 +1,105 @@
+
+<!doctype html>
+<html>
+<head>
+ 
+ 
+  <link href="css/boot2.css" rel="stylesheet" />
+
+
+</head>
+<body>
+ 
+  
+    
+      
+         <div class="featurette">
+           <img class="featurette-image img-circle pull-left" data-toggle="modal" href="#responsive" img src="images/feat/001.jpg">
+        </div>
+      
+   
+    
+              <!-- THIS ONE I NEED -->
+          <div id="responsive" class="modal hide fade">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+       
+            <div class="modal-body">
+              <div class="row-fluid">
+                <img src="images/gallery/fullsize/fullsizefordownload/Look OUT Duck Landing.jpg"></a>
+              </div>
+            </div>
+            <div class="modal-footer">
+             <img src="images/gallery/fullsize/fullsizefordownload/Look OUT Duck Landing.jpg"></a>
+           </div>
+         </div>
+
+
+
+
+
+
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+     
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>
+  
+<script type="text/javascript">
+
+  $(function(){
+
+    $.fn.modalmanager.defaults.resize = true;
+
+    $('[data-source]').each(function(){
+      var $this = $(this),
+        $source = $($this.data('source'));
+
+      var text = [];
+      $source.each(function(){
+        var $s = $(this);
+        if ($s.attr('type') == 'text/javascript'){
+          text.push($s.html().replace(/(\n)*/, ''));
+        } else {
+          text.push($s.clone().wrap('<div>').parent().html());
+        }
+      });
+      
+      $this.text(text.join('\n\n').replace(/\t/g, '    '));
+    });
+
+    prettyPrint();
+  });
+</script>
+    
+
+
+
+
+  </body>
+</html>
