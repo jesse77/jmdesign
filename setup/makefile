@@ -10,6 +10,8 @@ cc_light_blue	= "\033[0;36m"
 cc_white	= "\033[0;37m"
 cc_normal	= "\033[m\017"
 
+timestamp	= $(shell date +"%Y-%m-%d_%H:%M:%S")
+
 all: help
 
 help:
@@ -37,17 +39,17 @@ server_users:
 	@htpasswd -c ../.htpasswd admin;
 	@echo -e ${cc_normal}
 
+database: export_database
+	echo -e ${cc_white} "	Removing old database" ${cc_normal};		\
+	rm ../db/database.sql;							\
+	echo -e ${cc_white} "Building new SQLite database" ${cc_normal};	\
+	sqlite3 ../db/database.sql < tables.sql;				\
+	chmod 766 ../db/database.sql;						\
+	echo -e ${cc_blue} "	Saved '../db/database.sql'." ${cc_normal};
 
-database:
-	mkdir -p ../db;									\
-	if [ -a ../db/database.sql ] ;							\
-	then										\
-		@echo -e ${cc_white} "Database file already exists";			\
-		@echo -e ${cc_blue} "	../db/database.sql" ${cc_normal};		\
-		@echo -e ${cc_red} "	remove file first" ${cc_remove};		\
-	else										\
-		@echo -e ${cc_white} "Building SQLite database" ${cc_normal};		\
-		sqlite3 database.sql < tables.sql;					\
-		mv database.sql ../db;							\
-		@echo -e $(cc_blue) "	Saved '../db/database.sql'." ${cc_normal};	\
+export_database:
+	mkdir -p ../db;								\
+	if [ -a ../db/database.sql ]; then					\
+		echo -e ${cc_white} "Exporting current database to ../db/database-"${timestamp}".sql" ${cc_normal}; \
+		cp ../db/database.sql ../db/database-${timestamp}.sql; \
 	fi;

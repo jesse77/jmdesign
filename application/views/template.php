@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="<?= base_url() ?>/css/revolution-slider/css/settings.css" media="screen">
         <link rel="stylesheet" href="<?= base_url() ?>/css/prettyPhoto.css" media="screen">
 
+        
         <!-- Theme CSS -->
         <link rel="stylesheet" href="<?= base_url() ?>/css/style.css">
 
@@ -51,7 +52,19 @@
             <link rel="stylesheet" href="<?= base_url() ?>/css/ie.css">
             <![endif]-->
         
+        <!-- showcss: /server/jmdesign/css/bootstrap.css -->
+        <!-- showcss: /server/jmdesign/css/fonts/font-awesome/css/font-awesome.css -->
+        <!-- showcss: /server/jmdesign/css/animations.css -->
+        <!-- showcss: /server/jmdesign/css/superfish.css -->
+        <!-- showcss: /server/jmdesign/css/revolution-slider/css/settings.css  -->
+        <!-- showcss: /server/jmdesign/css/prettyPhoto.css  -->
+        <!-- showcss: /server/jmdesign/css/style.css -->
+        <!-- showcss: /server/jmdesign/css/colors/green.css -->
+        <!-- showcss: /server/jmdesign/css/theme-responsive.css -->
+
         <!-- Scripts -->
+        <script src="<?= base_url() ?>/js/jquery.min.js"></script>
+        <script src="<?= base_url() ?>/js/bootstrap.js"></script>
 
     </head>
     <body class="home-3">
@@ -299,8 +312,6 @@
             
         </script>
         
-        <script src="<?= base_url() ?>/js/jquery.min.js"></script>
-        <script src="<?= base_url() ?>/js/bootstrap.js"></script>
         <script src="<?= base_url() ?>/js/jquery.parallax.js"></script> 
         <script src="<?= base_url() ?>/js/modernizr-2.6.2.min.js"></script> 
         <script src="<?= base_url() ?>/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
@@ -316,5 +327,7 @@
         <script src="<?= base_url() ?>/js/imagesloaded.pkgd.min.js"></script>
         <script src="<?= base_url() ?>/js/waypoints.min.js"></script>
         <script src="<?= base_url() ?>/js/custom.js"></script>
+        <script src="<?= base_url() ?>/js/jquery.isotope.js"></script>
+        <script src="<?= base_url() ?>/js/portfolio.js"></script>
     </body>
 </html>

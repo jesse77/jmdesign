@@ -15,4 +15,13 @@ class Template extends CI_Model {
 
 	$this->load->view( 'template',	$d );
     }
+
+    function admin( $view, $data = [] )
+    {
+	$log				= $this->logging;
+	$d				= [ 'data'	=> $data,
+					    'view'	=> $view ];
+
+	$this->load->view( 'admin/template',	$d );
+    }
 }

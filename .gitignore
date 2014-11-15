@@ -1,6 +1,6 @@
 # Custom rules
-img/uploads/*
-db/database.sql
+img/uploaded/*
+db/*
 ./.htpasswd
 
 #Code Igniter Rules

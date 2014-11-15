@@ -1,9 +1,19 @@
-CREATE TABLE merchandise (
+CREATE TABLE photos (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
-       `name`		VARCHAR(50)	DEFAULT NULL,
-       link		VARCHAR(50)	NOT NULL,
+       title		VARCHAR(50)	DEFAULT NULL,
        comment		TEXT		DEFAULT NULL,
        timestamp	DATETIME	DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE photo_has_tag (
+       photo_id		INT,
+       tag_id		INT,
+       PRIMARY KEY (photo_id, tag_id)
+);
+
+CREATE TABLE tags (
+       id		INTEGER		PRIMARY KEY AUTOINCREMENT,
+       `name`		VARCHAR(50)
 );
 
 CREATE TABLE customers (
