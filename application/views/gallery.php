@@ -12,9 +12,6 @@
             <li>
                 <a href="#filter" data-option-value="*" class="selected">All</a>
             </li>
-            <li>
-                <a href="#filter" data-option-value=".web">Web</a>
-            </li>
             <?php foreach( $tags as $tag ): ?>
             <li>
                 <a href="#filter" data-option-value=".<?= $tag->name ?>"><?= $tag->name ?></a>
@@ -27,8 +24,6 @@
 <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 portfolio-wrap">
     <div class="row">
         <div class="portfolio">
-            
-            
             <?php foreach( $photos as $photo ): ?>
             <div class="item col-lg-3 col-md-3 col-sm-3 col-xs-12 <?= implode( $photo->tags, ' ' ) ?>">
                 <div class="portfolio-item">

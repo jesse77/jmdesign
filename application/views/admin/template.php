@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="<?= base_url() ?>/css/bootstrap.css">
         <link rel="stylesheet" href="<?= base_url() ?>css/bootstrap-glyphicons.css">
 
+        <link rel="stylesheet" href="<?= base_url() ?>/css/custom.css">
+
         <!-- showcss: /server/jmdesign/css/bootstrap.css -->
         <!-- showcss: /server/jmdesign/css/bootstrap-glyphicons.css -->
 
@@ -31,7 +33,7 @@
                 <div class="navbar-header">
                     <div class="logo">
                         <h1>
-                            <a href="index.html">
+                            <a href="<?= base_url() ?>">
                                 <img src="<?= base_url() ?>/img/logo.png" alt="JMDesign" width="125" height="60">
                             </a>
                             <span class="text-muted" style="top: 2px; position: relative;">

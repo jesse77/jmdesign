@@ -13,13 +13,47 @@ class admin extends CI_Controller {
 	$this->load->model('Photos');
 	$this->load->model('Tags');
 	$data			= [];
-	$data['photos']		= $this->Photos->all();
+	$data['photos']		= $this->Photos->all(true);
 	$data['tags']		= $this->Tags->all();
 	$this->template->admin( 'admin/photos', $data );
     }
+
+    function photo_json( $id = null )
+    {
+	$this->load->model('Photos');
+	$photo			= $this->Photos->get( $id );
+	echo json_encode( $photo );
+	return true;
+    }
     
-    function delete_image( $id ) {
+    function edit_photo() {
+	$this->load->model( 'Photos' );
 	
+	$data			= [];
+	$id			= $this->input->post( 'id' );
+	$data['title']		= $this->input->post( 'title' );
+	$data['comment']	= $this->input->post( 'comment' );
+	$data['tags']		= $this->input->post( 'tags' );
+	$this->Photos->edit( $id, $data );
+	redirect( 'admin/photos' );
+    }
+    
+    function delete_photo() {
+	$this->load->model( 'Photos' );
+	$id			= $this->input->post( 'id' );
+	echo $id;
+	$this->Photos->delete( $id );
+	redirect( 'admin/photos' );
+    }
+    
+    function toggle_active_photo( $id = null ) {
+	$this->load->model( 'Photos' );
+
+	if ( is_null( $id ) )
+	    $id			= $this->input->get_post( 'id' );
+
+	$this->Photos->toggle_active_photo( $id );
+	redirect( 'admin/photos' );
     }
     
     // Save image that was uploaded to web.
@@ -37,15 +71,13 @@ class admin extends CI_Controller {
 	    return false;
 	}
 
-	$info				= [];
-	$info['title']			= $this->input->post( 'title' );
-	$info['comment']		= $this->input->post( 'comment' );
-	$info['tags']			= $this->input->post( 'tags' );
+	$info				= [ 'title'	=> $this->input->post( 'title' ),
+					    'comment'	=> $this->input->post( 'comment' ),
+					    'tags'	=> $this->input->post( 'tags' ) ];
 
 	$this->Photos->save( $file, $info );
 
-	/* redirect('admin/photos'); */
-	return true;
+	redirect('admin/photos');
     }
 
     function tags()
@@ -70,4 +102,12 @@ class admin extends CI_Controller {
 			  $this->input->post( 'name' ) );
 	redirect( 'admin/tags' );
     }
+
+    function delete_tag() {
+	$this->load->model( 'Tags' );
+	$id			= $this->input->post( 'id' );
+	$this->Tags->delete( $id );
+	redirect( 'admin/tags' );
+    }
+    
 }

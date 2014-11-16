@@ -19,7 +19,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">Close</button>
-                        <input type="submit" value="Save" name="submit" />
+                        <input class="btn btn-primary" type="submit" value="Save" name="submit" />
                     </div>
                 </div>
             </form>
@@ -31,8 +31,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close"
-                        data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
                 <h4 class="modal-title">New Tag</h4>
             </div>
             <form action="<?= site_url('admin/edit_tag') ?>"
@@ -49,7 +51,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">Close</button>
-                        <input type="submit" value="Save" name="submit" />
+                        <input class="btn btn-primary" type="submit" value="Save" name="submit" />
                     </div>
                 </div>
             </form>
@@ -68,7 +70,16 @@
     <tr>
         <td><?= $tag->id ?></td>
         <td><?= $tag->name ?></td>
-        <td>
+        <td class="col-xs-2">
+            <form method="post" action="<?= site_url('admin/delete_tag') ?>" class="pull-right">
+                <input type="hidden" name="id" value="<?= $tag->id ?>" />
+                <input type="submit" data-id="<?= $tag->id ?>" value="Confirm Delete" 
+                       class="btn btn-danger btn-sm invisible confirm-delete" />
+            <input type="button" data-id="<?= $tag->id ?>"
+                   class="btn btn-default btn-sm start-delete" value="Delete" />
+            </form>
+        </td>
+        <td class="col-xs-1">
             <input type="button" class="btn btn-warning btn-sm edit-tag-btn" value="Edit"
                    data-id="<?= $tag->id ?>" data-name="<?= $tag->name ?>" />
         </td>
@@ -87,4 +98,10 @@
         $('#edit-tag-modal .name-field').val( $(this).attr('data-name') );
         $('#edit-tag-modal').modal();
     } )
+
+    $('.start-delete').on('click', function() {
+        var id			= $(this).attr('data-id');
+        $('.confirm-delete[data-id="'+id+'"]').toggleClass('invisible');
+    } )
+
 </script>

@@ -104,7 +104,7 @@
                         <!-- Logo Start -->
                         <div class="logo pull-left">
                             <h1>
-                                <a href="index.html">
+                                <a href="<?= base_url() ?>">
                                     <img src="<?= base_url() ?>/img/logo.png" alt="JMDesign" width="125" height="60">
                                 </a>
                             </h1>
@@ -121,19 +121,19 @@
                         <nav class="collapse navbar-collapse menu">
                             <ul class="nav navbar-nav sf-menu">
                                 <li>
-                                    <a id="current" href="index.html">
+                                    <a id="current" href="<?= base_url() ?>">
                                         Home
                                     </a>
                                     
                                 </li>
                                 <li>
-                                    <a href="gallery.html" class="sf-with-ul">
+                                    <a href="<?= site_url( 'gallery' ) ?>" class="sf-with-ul">
                                         Gallery
                                     </a>
                                     
                                 </li>
                                 <li>
-                                    <a href="about.html" class="sf-with-ul">
+                                    <a href="<?= site_url( 'about' ) ?>" class="sf-with-ul">
                                         About Me
                                     </a>
                                 </li>
@@ -173,26 +173,25 @@
             <!-- Content Start -->
             <div id="main">
                 <div class="main-content">
+
+                    <!-- Load CodeIgniter Views -->
+                    <?php if( is_array( $view ) ): ?>
+                    <?php foreach( $view as $v  ): ?>
                     <div class="container">
                         <div class="row">
-
-                            <!-- Load CodeIgniter Views -->
-                            <?php
-     				if( is_array( $view ) ) {
-				    foreach( $view as $v  ) {
-					$this->load->view( $v, $data );
-				    }
-				}
-				else {
-				    $this->load->view( $view, $data );
-				}
-			    ?>
-                            
+			    <?php $this->load->view( $v, $data ); ?>
                         </div>
                     </div>
+		    <?php endforeach; ?>
+		    <?php else : ?>
+                    <div class="container">
+                        <div class="row">
+			    <?php $this->load->view( $view, $data ); ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
-            
             <!-- Footer Start -->
             <footer id="footer">
                 

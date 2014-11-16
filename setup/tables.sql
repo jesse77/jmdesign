@@ -1,5 +1,6 @@
 CREATE TABLE photos (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
+       active		BOOLEAN		DEFAULT 1,
        title		VARCHAR(50)	DEFAULT NULL,
        comment		TEXT		DEFAULT NULL,
        timestamp	DATETIME	DEFAULT CURRENT_TIMESTAMP
@@ -13,7 +14,8 @@ CREATE TABLE photo_has_tag (
 
 CREATE TABLE tags (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
-       `name`		VARCHAR(50)
+       `name`		VARCHAR(50)	NOT NULL,
+       active		BOOLEAN		DEFAULT 1
 );
 
 CREATE TABLE customers (

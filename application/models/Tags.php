@@ -49,5 +49,23 @@ class Tags extends CI_Model {
 	$this->db->update( 'tags', ['name' => $name] );
 
     }
+    
+    function delete( $id = null )
+    {
+	$log			= $this->logging;
+
+	if( is_null( $id ) ) {
+	    $log->error( "Given id is null; return false" );
+	    return false;
+	}
+	
+	$this->db->where( 'id', $id );
+	$this->db->delete( 'tags' );
+
+	$this->db->where( 'tag_id', $id );
+	$this->db->delete( 'photo_has_tag' );
+
+	return true;
+    }
 }
 

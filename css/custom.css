@@ -1,0 +1,4 @@
+.table.table-align-middle td,
+.table.table-align-middle th {
+  vertical-align: middle
+}
