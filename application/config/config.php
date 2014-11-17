@@ -68,7 +68,7 @@ define( 'PHOTO_URL', $config['base_url'].'img/uploaded/' );
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

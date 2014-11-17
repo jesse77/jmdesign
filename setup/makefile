@@ -19,11 +19,12 @@ help:
 	@echo	"	all (default)	- Display this help text"
 	@echo	"	setup		- Runs all the setup procedures"
 	@echo	"	build		- Installs necessary packages"
-	@echo	"	users		- Setup apache2 server users"
+	@echo	"	apache_config	- Setup apache2 site configurations"
+	@echo	"	server_users	- Setup apache2 server users"
 	@echo	"	database	- Build SQLite database and tables"
 	@echo -e ${cc_normal}
 
-setup: build users database
+setup: build server_file apache_config server_users database
 
 build:
 	@echo -e ${cc_white} "Installing necessary packages" ${cc_normal};
@@ -31,12 +32,19 @@ build:
 	sudo apt-get install	apache2 libapache2-mod-php5 \
 				apache2-utils php5-sqlite sqlite3 libsqlite3-dev;
 
+apache_config: server_users
+	if [ ! -e /etc/apache2/sites-available/jmdesign.conf ]; then						\
+		echo -e ${cc_white} "Moving jmdesign.conf to apache sites folder." ${cc_normal};		\
+		echo -e ${cc_pink} "Don't forget to configure it correctly and enable it!" ${cc_normal};	\
+		sudo cp ./jmdesign.conf /etc/apache2/sites-available/jmdesign.conf;				\
+	fi;
+
 server_users:
 	@echo -e ${cc_yellow}"Set apache password for 'jesse' user:" ${cc_normal};
 	@htpasswd -c ../.htpasswd jesse;
 	@echo -e ${cc_normal};
 	@echo -e ${cc_yellow}"Set apache password for 'admin' user:" ${cc_normal};
-	@htpasswd -c ../.htpasswd admin;
+	@htpasswd ../.htpasswd admin;
 	@echo -e ${cc_normal}
 
 database: export_database
@@ -49,7 +57,7 @@ database: export_database
 
 export_database:
 	mkdir -p ../db;								\
-	if [ -a ../db/database.sql ]; then					\
+	if [ -e ../db/database.sql ]; then					\
 		echo -e ${cc_white} "Exporting current database to ../db/database-"${timestamp}".sql" ${cc_normal}; \
 		cp ../db/database.sql ../db/database-${timestamp}.sql; \
 	fi;
