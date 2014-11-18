@@ -16,8 +16,9 @@ class Photos extends CI_Model {
             GROUP BY photo_id )
       AS tag_names
       ON p.id = tag_names.photo_id
-%s;";
-
+%s
+   ORDER BY timestamp desc
+";
     }
 
     function all( $get_inactive = false )
@@ -69,6 +70,26 @@ class Photos extends CI_Model {
 	return $photo;
     }
 
+    function limit( $start = 0, $count = 0 )
+    {
+	$log			= $this->logging;
+	
+	$where			= "WHERE active = 1";
+	$limit			= sprintf( "LIMIT %s, %s", $start, $count );
+	$select_query		= $this->select_query . $limit;
+	$select			= sprintf( $select_query, $where );
+	$query			= $this->db->query( $select );
+	$result			= $query->result();
+	
+	$make_tags_array	= function( $value ) {
+	    $value->tags	= explode( ',', $value->tags );
+	};
+	
+	array_walk( $result, $make_tags_array );
+	
+	return $result;
+    }
+
     function save( $file = null, $image_info = null )
     {
 	$log			= $this->logging;
@@ -88,15 +109,15 @@ class Photos extends CI_Model {
 	$log->trace( 'Image comment:			%s', $image_info['comment'] );
 
 	$image_id		= $this->db->insert_id();
-	$this->update_tags( $image_id, $image_info['tags'] );
+	if( is_array( $image_info['tags'] ) ) {
+	    $this->update_tags( $image_id, $image_info['tags'] );
+	}
 	
 	return $this->Photos->save_image_files( $image_id, $file );
     }
 
     function update_tags( $id = null, $tags = [] )
     {
-	$previous_tags			= $this->get( $id )->tags;
-
 	if ( is_null( $id ) ) {
 	    $log->error( 'id is null; return false' );
 	    return false;
@@ -205,10 +226,15 @@ class Photos extends CI_Model {
 	}
 
 	$original			= $this->upload->data();
-	$thumbnail			= $this->resize_image( $original['full_path'], 200 );
-	$display			= $this->resize_image( $original['full_path'], 800 );
-	imagejpeg( $thumbnail, $image_dir . '/thumbnail.jpg' );
-	imagejpeg( $display, $image_dir . '/display.jpg' );
+	$xsmall				= $this->resize_image( $original['full_path'], 100 );
+	$small				= $this->resize_image( $original['full_path'], 260 );
+	$medium				= $this->resize_image( $original['full_path'], 800 );
+	$large				= $this->resize_image( $original['full_path'], 1500 );
+
+	imagejpeg( $xsmall, $image_dir	. '/xsmall.jpg' );
+	imagejpeg( $small, $image_dir	. '/small.jpg' );
+	imagejpeg( $medium, $image_dir	. '/medium.jpg' );
+	imagejpeg( $large, $image_dir	. '/large.jpg' );
 
 	return true;
     }
@@ -293,6 +319,19 @@ class Photos extends CI_Model {
 	$test_name                      = "<b>FAIL MODE: Search ID is null</b>";
 	$test                           = $this->get();
 	$expected                       = 'is_false';
+	$this->unit->run( $test, $expected, $test_name );
+    }
+
+    function test_limit()
+    {
+	$test_count			= count( $this->all() );
+	if( $test_count < 5 )
+	    echo "<h2>Not enough images uploaded for sufficient test</h2>";
+
+	$test_name                      = "<b>Returns correct number of results</b>";
+	$photos				= $this->limit( 0, 5 );
+	$test                           = count( $photos ) === 5;
+	$expected                       = 'is_true';
 	$this->unit->run( $test, $expected, $test_name );
     }
 

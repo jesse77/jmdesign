@@ -23,10 +23,10 @@
         <link rel="stylesheet" href="<?= base_url() ?>/css/fonts/font-awesome/css/font-awesome.css">
         <link rel="stylesheet" href="<?= base_url() ?>/css/animations.css" media="screen">
         <link rel="stylesheet" href="<?= base_url() ?>/css/superfish.css" media="screen">
+        <link rel="stylesheet" href="<?= base_url() ?>/css/team-member.css" media="screen">
         <link rel="stylesheet" href="<?= base_url() ?>/css/revolution-slider/css/settings.css" media="screen">
         <link rel="stylesheet" href="<?= base_url() ?>/css/prettyPhoto.css" media="screen">
 
-        
         <!-- Theme CSS -->
         <link rel="stylesheet" href="<?= base_url() ?>/css/style.css">
 
@@ -121,30 +121,35 @@
                         <nav class="collapse navbar-collapse menu">
                             <ul class="nav navbar-nav sf-menu">
                                 <li>
-                                    <a id="current" href="<?= base_url() ?>">
+                                    <a <?= $data['active'] == 'home' ? 'id="current"' : '' ?>
+     					href="<?= base_url() ?>">
                                         Home
                                     </a>
                                     
                                 </li>
                                 <li>
-                                    <a href="<?= site_url( 'gallery' ) ?>" class="sf-with-ul">
+                                    <a <?= $data['active'] == 'gallery' ? 'id="current"' : '' ?>
+                                       href="<?= site_url( 'gallery' ) ?>" class="sf-with-ul">
                                         Gallery
                                     </a>
                                     
                                 </li>
                                 <li>
-                                    <a href="<?= site_url( 'about' ) ?>" class="sf-with-ul">
+                                    <a <?= $data['active'] == 'about' ? 'id="current"' : '' ?>
+                                       href="<?= site_url( 'about' ) ?>" class="sf-with-ul">
                                         About Me
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="communities.html" class="sf-with-ul">
+                                    <a <?= $data['active'] == 'communities' ? 'id="current"' : '' ?>
+                                       href="communities" class="sf-with-ul">
                                         Communities
                                     </a>
                                     
                                 </li>
                                 <li>
-                                    <a href="contact.html" class="sf-with-ul">
+                                    <a <?= $data['active'] == 'contact' ? 'id="current"' : '' ?>
+                                       href="contact.html" class="sf-with-ul">
                                         Contact Me
                                     </a>
                                     
@@ -172,25 +177,25 @@
             
             <!-- Content Start -->
             <div id="main">
-                <div class="main-content">
-
-                    <!-- Load CodeIgniter Views -->
-                    <?php if( is_array( $view ) ): ?>
-                    <?php foreach( $view as $v  ): ?>
+                <?php if( isset( $data['title'] ) ): ?>
+                <div class="breadcrumb-wrapper">
                     <div class="container">
                         <div class="row">
-			    <?php $this->load->view( $v, $data ); ?>
+                            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                                <h2 class="title"><?= $data['title'] ?></h2>
+                            </div>
                         </div>
                     </div>
-		    <?php endforeach; ?>
-		    <?php else : ?>
-                    <div class="container">
-                        <div class="row">
-			    <?php $this->load->view( $view, $data ); ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
                 </div>
+                <?php endif; ?>
+                <!-- Load CodeIgniter Views -->
+                <?php if( is_array( $view ) ): ?>
+                <?php foreach( $view as $v  ): ?>
+		<?php $this->load->view( $v, $data ); ?>
+		<?php endforeach; ?>
+		<?php else : ?>
+		<?php $this->load->view( $view, $data ); ?>
+                <?php endif; ?>
             </div>
             <!-- Footer Start -->
             <footer id="footer">

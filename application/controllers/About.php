@@ -5,7 +5,9 @@ class About extends CI_Controller {
     public function index()
     {
 	$log			= $this->logging;
-
-	$this->template->load( ['about', 'our-clients'] );
+	$data['title']		= 'About Me';
+	$data['active']		= 'about';
+	
+	$this->template->load( ['about', 'our-clients'], $data );
     }
 }

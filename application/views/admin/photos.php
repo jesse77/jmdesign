@@ -117,7 +117,7 @@
     <tr data-row-id="<?= $ph->id ?>">
         <td><?= $ph->id ?></td>
         <td>
-            <img src="<?= PHOTO_URL.$ph->id ?>/thumbnail.jpg" style="height: 50px" alt="" />
+            <img src="<?= PHOTO_URL.$ph->id ?>/xsmall.jpg" style="height: 50px" alt="" />
         </td>
         <td>
             <button type="button" data-id="<?= $ph->id ?>"

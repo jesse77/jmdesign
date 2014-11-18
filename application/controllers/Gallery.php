@@ -11,6 +11,8 @@ class Gallery extends CI_Controller {
 
 	$data['photos']		= $this->Photos->all();
 	$data['tags']		= $this->Tags->all();
+	$data['title']		= 'Prepare to be AMAZED!';
+	$data['active']		= 'gallery';
 	
 	$this->template->load( 'gallery', $data );
     }

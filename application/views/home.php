@@ -1,66 +1,416 @@
-<div class="slogan-content">
-    <div class="col-lg-9 col-md-9">
-        <h2 class="slogan-title">First things first FOLLOW ME on Google+ if you don't... I will know.</h2></br>Google+ is a social network that is more of a community than anything else. I am a HUGE Google+ supporter, most of my success in terms of popularity has come from G+. I say, check it out, you could be surprised!
+<div class="fullwidthbanner-container">
+    <div class="fullwidthbanner rslider">
         
+        <ul>
+            <!-- THE FIRST SLIDE -->
+            
+            <li data-delay="6000" data-masterspeed="300" data-transition="fade">
+                <div class="slotholder"><img src="img/slider/bg1.jpg"
+                                             data-fullwidthcentering="on" alt="JMdesign"></div>
+                <div class="caption modern_big_bluebg h1 lft tp-caption start"
+                     data-x="40"
+                     data-y="85"
+                     data-speed="700"
+                     data-endspeed="800"
+                     data-start="1000"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    
+                    <h3>HI! My Name is Jesse Martineau</h3>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1400" 
+                     data-speed="1050" 
+                     data-y="180" 
+                     data-x="40">
+                    <div class="list-slide">
+                        <i class="icon-camera slide-icon"></i>
+                        <h5 class="dblue"> I like to take photographs </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1800" 
+                     data-speed="1200" 
+                     data-y="220" 
+                     data-x="40">
+                    <div class="list-slide">
+                        <i class="icon-search slide-icon"></i>
+                        <h5 class="dblue"> I like to film things </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2200" 
+                     data-speed="1350" 
+                     data-y="260" 
+                     data-x="40">
+                    <div class="list-slide">
+                        <i class="icon-code slide-icon"></i>
+                        <h5 class="dblue"> I like to build websites </h5>
+                    </div>
+                </div>
+                <div class="caption lfb caption_button_1 fadeout tp-caption start"
+                     data-x="40"
+                     data-y="330"
+                     data-speed="900"
+                     data-endspeed="300"
+                     data-start="2700"
+                     data-hoffset="-70"
+                     data-easing="easeOutExpo">
+                    <a class="btn-special hidden-xs btn-color" href="<?= base_url()?>/contact">Contact
+                        Me</a>
+                </div>
+                
+                
+                
+                
+                
+            </li>
+            
+            
+            
+            
+            <!-- THE RESPONSIVE SLIDE -->
+            <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
+                <img src="img/slider/bg2.jpg" data-fullwidthcentering="on" alt="JMDesign">
+                <div class="caption large_text sft"
+                     data-x="660"
+                     data-y="54"
+                     data-speed="300"
+                     data-start="800"
+                     data-easing="easeOutExpo"  >Follow Me</div>
+                <div class="caption medium_text sfl"
+                     data-x="689"
+                     data-y="92"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo"  >on</div>
+                <div class="caption large_text sfr"
+                     data-x="738"
+                     data-y="88"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo"  >Google+...PLEASE!</div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1400" 
+                     data-speed="1050" 
+                     data-y="180" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> Look down </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1800" 
+                     data-speed="1200" 
+                     data-y="220" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> lower than this... </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2200" 
+                     data-speed="1350" 
+                     data-y="260" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> and read </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2600" 
+                     data-speed="1350" 
+                     data-y="300" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> the caption that says </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="3000" 
+                     data-speed="1350" 
+                     data-y="340" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> FOLLOW ME . You won't be dissapointed... Well, hopefully. </h5>
+                    </div>
+                </div>
+                <div class="caption lfl"
+                     data-x="53"
+                     data-y="30"
+                     data-speed="300"
+                     data-start="1400"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-imac.jpg" alt="iMac Responsive">
+                </div>
+                <div class="caption lfl"
+                     data-x="323"
+                     data-y="145"
+                     data-speed="300"
+                     data-start="1500"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-ipad.jpg" alt="iPad Responsive">
+                </div>
+                <div class="caption lfl"
+                     data-x="472"
+                     data-y="253"
+                     data-speed="300"
+                     data-start="1600"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-iphone.jpg" alt="iPhone Responsive">
+                </div>
+            </li>
+            
+            <!-- THE third SLIDE -->
+            
+            <li data-delay="6000" data-masterspeed="300" data-transition="fade">
+                <div class="slotholder"><img src="img/slider/bg3.jpg"
+                                             data-fullwidthcentering="on" alt="JMDesign"></div>
+                <div class="caption modern_big_bluebg h1 lft tp-caption start"
+                     data-x="40"
+                     data-y="85"
+                     data-speed="700"
+                     data-endspeed="800"
+                     data-start="1000"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    
+                    <h3>Hey you're still here!</h3>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1400" 
+                     data-speed="1050" 
+                     data-y="180" 
+                     data-x="40">
+                    <div class="list-slide">
+                        
+                        <h5> Don't leave </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1800" 
+                     data-speed="1200" 
+                     data-y="220" 
+                     data-x="40">
+                    <div class="list-slide">
+                        
+                        <h5> until you visit </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2200" 
+                     data-speed="1350" 
+                     data-y="260" 
+                     data-x="40">
+                    <div class="list-slide">
+                        
+                        <h5> my amazing photo gallery! </h5>
+                    </div>
+                </div>
+                <div class="caption lfb caption_button_1 fadeout tp-caption start"
+                     data-x="40"
+                     data-y="330"
+                     data-speed="900"
+                     data-endspeed="300"
+                     data-start="2700"
+                     data-hoffset="-70"
+                     data-easing="easeOutExpo">
+                    <a class="btn-special hidden-xs btn-grey" href="<?= base_url() ?>/gallery">Gallery</a>
+                </div>
+                
+                
+                
+                
+                
+            </li>
+            
+            <!-- THE RESPONSIVE SLIDE -->
+            <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
+                <img src="img/slider/bg4.jpg" data-fullwidthcentering="on" alt="JMDesign">
+                <div class="caption large_text sft"
+                     data-x="660"
+                     data-y="54"
+                     data-speed="300"
+                     data-start="800"
+                     data-easing="easeOutExpo"  >CHOOSE JMDESIGN</div>
+                <div class="caption medium_text sfl"
+                     data-x="689"
+                     data-y="92"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo"  >AND</div>
+                <div class="caption large_text sfr"
+                     data-x="738"
+                     data-y="88"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo"  >HAVE YOUR MIND BLOWN</div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1400" 
+                     data-speed="1050" 
+                     data-y="180" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> If it's Photography </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="1800" 
+                     data-speed="1200" 
+                     data-y="220" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> Filmography </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2200" 
+                     data-speed="1350" 
+                     data-y="260" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> Or maybe even </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="2600" 
+                     data-speed="1350" 
+                     data-y="300" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> Webography </h5>
+                    </div>
+                </div>
+                <div class="caption list_slide lfb tp-caption start" 
+                     data-easing="easeOutExpo" 
+                     data-start="3000" 
+                     data-speed="1350" 
+                     data-y="340" 
+                     data-x="660">
+                    <div class="list-slide">
+                        
+                        <h5> JMDESIGN can help you out! </h5>
+                    </div>
+                </div>
+                <div class="caption lfl"
+                     data-x="53"
+                     data-y="30"
+                     data-speed="300"
+                     data-start="1400"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-imac2.jpg" alt="iMac Responsive">
+                </div>
+                <div class="caption lfl"
+                     data-x="323"
+                     data-y="145"
+                     data-speed="300"
+                     data-start="1500"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-ipad2.jpg" alt="iPad Responsive">
+                </div>
+                <div class="caption lfl"
+                     data-x="472"
+                     data-y="253"
+                     data-speed="300"
+                     data-start="1600"
+                     data-easing="easeOutExpo">
+                    <img src="img/slider/responsive-iphone2.jpg" alt="iPhone Responsive">
+                </div>
+            </li>
+            
+            
+        </ul>
     </div>
-    <div class="col-lg-3 col-md-3">
-        <div class="get-started">
-            
-            <!-- Place this tag where you want the widget to render. -->
-            <div class="g-person" data-width="286" data-href="//plus.google.com/100657331649343801873" data-layout="landscape" data-rel="author"></div>
-            
+</div>
+<div class="container">
+    <div class="row">
+        <div class="slogan-content">
+            <div class="col-lg-9 col-md-9">
+                <h2 class="slogan-title">First things first FOLLOW ME on Google+ if you don't... I will know.</h2></br>Google+ is a social network that is more of a community than anything else. I am a HUGE Google+ supporter, most of my success in terms of popularity has come from G+. I say, check it out, you could be surprised!
+                
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="get-started">
+                    
+                    <!-- Place this tag where you want the widget to render. -->
+                    <div class="g-person" data-width="286" data-href="//plus.google.com/100657331649343801873" data-layout="landscape" data-rel="author"></div>
+                    
+                </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
-    <div class="clearfix"></div>
-</div>
-</div>
-</div>
 </div>
 <!-- Slogan End--> 
 <!-- Main Content start-->
 <div class="services-big">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="content-box">
-            <div class="content-box-icon">
-                <img src="<?= base_url() ?>/img/home/1.png" alt=" "/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="content-box">
+                    <div class="content-box-icon">
+                        <img src="<?= base_url() ?>/img/home/1.png" alt=" "/>
+                    </div>
+                    <div class="content-box-info">
+                        <h4>Epic tales of Epicness</h4>
+                        <p>
+                            I love to explain the situation I am in as I photograph things. Like this example here: I thought i'd take the new girl (Nikon D600) to meet the other girl (My Ferrari). They got along splendidly! Laughing and conversing over tea and crumpets, we had a grand time! I look forward to when we all go and meet the 3rd girl, The Yacht! 
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="content-box-info">
-                <h4>Epic tales of Epicness</h4>
-                <p>
-                    I love to explain the situation I am in as I photograph things. Like this example here: I thought i'd take the new girl (Nikon D600) to meet the other girl (My Ferrari). They got along splendidly! Laughing and conversing over tea and crumpets, we had a grand time! I look forward to when we all go and meet the 3rd girl, The Yacht! 
-                </p>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="content-box">
+                    <div class="content-box-icon">
+                        <img src="<?= base_url() ?>/img/home/2.png" alt=" "/>
+                    </div>
+                    <div class="content-box-info">
+                        <h4>It'll blow your mind.</h4>
+                        <p>
+                            The northern lights, or for you scientific folks, The Aurora Borealis. Pretty awesome thing to behold, right up until you think of the tons of radiation pouring into the earth! And we are worried about car emissions! HA! I say let's just get rid of the sun! That will fix us...
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="content-box">
+                    <div class="content-box-icon">
+                        <img src="<?= base_url() ?>/img/home/3.png" alt=" "/>
+                    </div>
+                    <div class="content-box-info">
+                        <h4>Oh ya, it's that good</h4>
+                        <p>
+                            Possibly the last image from my first camera. Its been a good go with him, but now there is a new temptress in town and her seductive ways are too much for me to say 'no' to. All I can do is think about her as I lay in bed, longing for the next time I get to push her buttons...
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="content-box">
-            <div class="content-box-icon">
-                <img src="<?= base_url() ?>/img/home/2.png" alt=" "/>
-            </div>
-            <div class="content-box-info">
-                <h4>It'll blow your mind.</h4>
-                <p>
-                    The northern lights, or for you scientific folks, The Aurora Borealis. Pretty awesome thing to behold, right up until you think of the tons of radiation pouring into the earth! And we are worried about car emissions! HA! I say let's just get rid of the sun! That will fix us...
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="content-box">
-            <div class="content-box-icon">
-                <img src="<?= base_url() ?>/img/home/3.png" alt=" "/>
-            </div>
-            <div class="content-box-info">
-                <h4>Oh ya, it's that good</h4>
-                <p>
-                    Possibly the last image from my first camera. Its been a good go with him, but now there is a new temptress in town and her seductive ways are too much for me to say 'no' to. All I can do is think about her as I lay in bed, longing for the next time I get to push her buttons...
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
 </div>
 <!-- Main Content end--> 
 <!-- Recent works start-->
@@ -70,10 +420,16 @@
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 animate_afl d1">
                 <div class="portfolio-desc">
                     <h3 class="title">PLEASE Like me!</h3>
-                    <p>Hey, if you aren't impressed yet, well that sucks... What can I do? OH how about take a look at some of my selections a little larger, apparently size matters. Don't forget to check out the Gallery page, atleast give me that! </p>
+                    <p>Hey, if you aren't impressed yet, well that sucks... What can I do? OH how
+                    about take a look at some of my selections a little larger, apparently size
+                    matters. Don't forget to check out the Gallery page, atleast give me that! </p>
                     <div class="carousel-controls">
-                        <a class="prev" href="#portfolio-carousel" data-slide="prev"><i class="icon-angle-left"></i></a>
-                        <a class="next" href="#portfolio-carousel" data-slide="next"><i class="icon-angle-right"></i></a>
+                        <a class="prev" href="#portfolio-carousel" data-slide="prev">
+                            <i class="icon-angle-left"></i>
+                        </a>
+                        <a class="next" href="#portfolio-carousel" data-slide="next">
+                            <i class="icon-angle-right"></i>
+                        </a>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -82,95 +438,31 @@
                 <div class="row">
                     <div id="portfolio-carousel" class="portfolio-carousel slide">
                         <div class="carousel-inner">
-                            <div class="item active">
+                            <?php foreach( $examples as $i => $ph ): ?>
+                            <?php if( $i % 3 === 0 ): ?>
+                            <div class="item <?= $i == 0 ? 'active' : ''; ?> ">
+                                <?php endif; ?>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d2">
                                     <div class="portfolio-item">
-                                        <a href="gallery/aa-79.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
+                                        <a href="<?= PHOTO_URL . $ph->id ?>/original.jpg"
+                                           class="portfolio-item-link" data-rel="prettyPhoto" >
                                             <span class="portfolio-item-hover"></span>
-                                            <span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-79.jpg" alt=" "/>
+                                            <span class="fullscreen"><i class="icon-search"></i></span>
+                                            <img src="<?= PHOTO_URL . $ph->id ?>/small.jpg" alt="<?= $ph->comment ?>"/>
                                         </a>
                                         <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
+                                            <a href="<?= base_url() ?>/gallery">Gallery</a>
                                             <p>
-                                                The Pyramaze 
+                                                <?= $ph->title ?>
                                             </p>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d3">
-                                    <div class="portfolio-item">
-                                        <a href="gallery/aa-87.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
-                                            <span class="portfolio-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-87.jpg" alt=" "/>
-                                        </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
-                                            <p>
-                                                Upsidedown Roof
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d4">
-                                    <div class="portfolio-item">
-                                        <a href="gallery/aa-2.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
-                                            <span class="portfolio-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-2.jpg" alt=" "/>
-                                        </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
-                                            <p>
-                                                Dinos Are Loose!
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
+                                <?php if( $i % 3 == 2 ): ?>
                             </div>
-                            <div class="item">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item">
-                                    <div class="portfolio-item">
-                                        <a href="gallery/aa-22.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
-                                            <span class="portfolio-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-22.jpg" alt=" "/>
-                                        </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
-                                            <p>
-                                                The Magic of HDR
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item">
-                                    <div class="portfolio-item">
-                                        <a href="gallery/aa-30.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
-                                            <span class="portfolio-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-30.jpg" alt=" "/>
-                                        </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
-                                            <p>
-                                                Niagra Falls
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item">
-                                    <div class="portfolio-item">
-                                        <a href="gallery/aa-28.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
-                                            <span class="portfolio-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img src="<?= base_url() ?>/gallery/thumbs/aa-28.jpg" alt=" "/>
-                                        </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="gallery.html">Gallery</a>
-                                            <p>
-                                                Duck Landing
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -201,7 +493,7 @@
                             <span><a href="#">Get a load of this</a></span>
                             <h4><a href="#" class="title">My Cameras Speaks!</a></h4>
                             <p>To let you in on a little secret... My cameras talk to me... I document the events here.</p>
-                            <a href="gallery.html">View Gallery, Read the captions. <i class="icon-double-angle-right"></i></a>
+                            <a href="<?= base_url() ?>/gallery">View Gallery, Read the captions. <i class="icon-double-angle-right"></i></a>
                         </div>
                     </li>
                     <li>
@@ -214,7 +506,7 @@
                             <span><a href="#">Learn more </a></span>
                             <h4><a href="#" class="title">Hey It's ME!</a></h4>
                             <p>Learn some more about me. Maybe if you like me you will need me!</p>
-                            <a href="about.html">More About Me <i class="icon-double-angle-right"></i></a>
+                            <a href="<?= base_url() ?>/about">More About Me <i class="icon-double-angle-right"></i></a>
                         </div>
                     </li>
                     <li class="blog-first-el">
@@ -227,7 +519,7 @@
                             <span><a href="#">Follow, Follow</a></span>
                             <h4><a href="#" class="title">FOLLOW!</a></h4>
                             <p>Don't be like these ducks and not get it! Stay current and follow me! </p>
-                            <a href="communities.html">Follow me and my friends here <i class="icon-double-angle-right"></i></a>
+                            <a href="<?= base_url() ?>/communities">Follow me and my friends here <i class="icon-double-angle-right"></i></a>
                         </div>
                     </li>
                 </ul>
