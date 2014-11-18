@@ -2,6 +2,7 @@
 img/uploaded/*
 db/*
 .htpasswd
+application/config/config.php
 
 #Code Igniter Rules
 .DS_Store

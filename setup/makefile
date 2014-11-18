@@ -32,6 +32,10 @@ build:
 	sudo apt-get install	apache2 libapache2-mod-php5 \
 				apache2-utils php5-sqlite sqlite3 libsqlite3-dev;
 
+codeigniter:
+	echo -e ${cc_white} "Setting up codeigniter file." ${cc_normal};		\
+	cp ./config.php ../application/config/
+
 apache_config: server_users
 	if [ ! -e /etc/apache2/sites-available/jmdesign.conf ]; then						\
 		echo -e ${cc_white} "Moving jmdesign.conf to apache sites folder." ${cc_normal};		\

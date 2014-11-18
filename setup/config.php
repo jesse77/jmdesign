@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://jmdesign.local/';
+$config['base_url'] = 'http://website.goes.here';
 
 define( 'PHOTO_URL', $config['base_url'].'img/uploaded/' );
 
