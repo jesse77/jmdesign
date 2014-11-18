@@ -64,16 +64,17 @@ class admin extends CI_Controller {
     {
 	$log			= $this->logging;
 	$this->load->model( 'Photos' );
-
-	$file			= $_FILES["file"];
-	if( ! $file ) {
+	if( ! isset( $_FILES['file'] ) || $_FILES['file']['size'] === 0 ) {
 	    $log->error( 'Image uploading did not work. No file found to upload. Return false.' );
-	    return false;
+	    $error		= urlencode( "Image uploading did not work. No file found to upload." );
+	    redirect('admin/photos?error=' . $error );
 	}
 
-	$info				= [ 'title'	=> $this->input->post( 'title' ),
-					    'comment'	=> $this->input->post( 'comment' ),
-					    'tags'	=> $this->input->post( 'tags' ) ];
+	$file			= $_FILES["file"];
+
+	$info			= [ 'title'	=> $this->input->post( 'title' ),
+				    'comment'	=> $this->input->post( 'comment' ),
+				    'tags'	=> $this->input->post( 'tags' ) ];
 
 	$this->Photos->save( $file, $info );
 

@@ -57,6 +57,11 @@
             </div>
         </nav>
         <div class="container">
+            <?php if( $this->input->get( 'error' ) ): ?>
+            <div class="alert alert-danger">
+                <?= $this->input->get('error'); ?>
+            </div>
+            <?php endif; ?>
         <?php
      	    if( is_array( $view ) ) {
 		foreach( $view as $v  ) {
