@@ -76,7 +76,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="title">Our Location...Figure it out :D</h3>
-                <img src="gallery/bb-23.jpg">
+                <img src="<?= base_url() ?>/img/location.jpg">
             </div>
         </div>
         <div class="divider"></div>

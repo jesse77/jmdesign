@@ -62,15 +62,7 @@
                     <a class="btn-special hidden-xs btn-color" href="<?= base_url()?>/contact">Contact
                         Me</a>
                 </div>
-                
-                
-                
-                
-                
             </li>
-            
-            
-            
             
             <!-- THE RESPONSIVE SLIDE -->
             <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
@@ -233,13 +225,7 @@
                      data-easing="easeOutExpo">
                     <a class="btn-special hidden-xs btn-grey" href="<?= base_url() ?>/gallery">Gallery</a>
                 </div>
-                
-                
-                
-                
-                
             </li>
-            
             <!-- THE RESPONSIVE SLIDE -->
             <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
                 <img src="img/slider/bg4.jpg" data-fullwidthcentering="on" alt="JMDesign">
@@ -268,7 +254,6 @@
                      data-y="180" 
                      data-x="660">
                     <div class="list-slide">
-                        
                         <h5> If it's Photography </h5>
                     </div>
                 </div>
@@ -279,7 +264,6 @@
                      data-y="220" 
                      data-x="660">
                     <div class="list-slide">
-                        
                         <h5> Filmography </h5>
                     </div>
                 </div>
@@ -290,7 +274,6 @@
                      data-y="260" 
                      data-x="660">
                     <div class="list-slide">
-                        
                         <h5> Or maybe even </h5>
                     </div>
                 </div>
@@ -301,7 +284,6 @@
                      data-y="300" 
                      data-x="660">
                     <div class="list-slide">
-                        
                         <h5> Webography </h5>
                     </div>
                 </div>
@@ -312,7 +294,6 @@
                      data-y="340" 
                      data-x="660">
                     <div class="list-slide">
-                        
                         <h5> JMDESIGN can help you out! </h5>
                     </div>
                 </div>
@@ -341,8 +322,6 @@
                     <img src="img/slider/responsive-iphone2.jpg" alt="iPhone Responsive">
                 </div>
             </li>
-            
-            
         </ul>
     </div>
 </div>
@@ -350,23 +329,25 @@
     <div class="row">
         <div class="slogan-content">
             <div class="col-lg-9 col-md-9">
-                <h2 class="slogan-title">First things first FOLLOW ME on Google+ if you don't... I will know.</h2></br>Google+ is a social network that is more of a community than anything else. I am a HUGE Google+ supporter, most of my success in terms of popularity has come from G+. I say, check it out, you could be surprised!
-                
+                <h2 class="slogan-title">First things first FOLLOW ME on Google+ if you don't... I
+                    will know.</h2><br/>
+                Google+ is a social network that is more of a community than
+                anything else. I am a HUGE Google+ supporter, most of my success in terms of
+                popularity has come from G+. I say, check it out, you could be surprised!
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="get-started">
-                    
                     <!-- Place this tag where you want the widget to render. -->
-                    <div class="g-person" data-width="286" data-href="//plus.google.com/100657331649343801873" data-layout="landscape" data-rel="author"></div>
-                    
+                    <div class="g-person" data-width="286"
+                         data-href="//plus.google.com/100657331649343801873" data-layout="landscape"
+                         data-rel="author"></div>
                 </div>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
-<!-- Slogan End--> 
-<!-- Main Content start-->
+
 <div class="services-big">
     <div class="container">
         <div class="row">
@@ -412,17 +393,16 @@
         </div>
     </div>
 </div>
-<!-- Main Content end--> 
-<!-- Recent works start-->
-<div class="recentworks bottom-pad">
+
+<div class="recentworks">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 animate_afl d1">
                 <div class="portfolio-desc">
                     <h3 class="title">PLEASE Like me!</h3>
                     <p>Hey, if you aren't impressed yet, well that sucks... What can I do? OH how
-                    about take a look at some of my selections a little larger, apparently size
-                    matters. Don't forget to check out the Gallery page, atleast give me that! </p>
+                        about take a look at some of my selections a little larger, apparently size
+                        matters. Don't forget to check out the Gallery page, atleast give me that! </p>
                     <div class="carousel-controls">
                         <a class="prev" href="#portfolio-carousel" data-slide="prev">
                             <i class="icon-angle-left"></i>
@@ -444,36 +424,29 @@
                                 <?php endif; ?>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d2">
                                     <div class="portfolio-item">
-                                        <a href="<?= PHOTO_URL . $ph->id ?>/original.jpg"
+                                        <a href="<?= PHOTO_URL . $ph->id ?>/large.jpg"
                                            class="portfolio-item-link" data-rel="prettyPhoto" >
                                             <span class="portfolio-item-hover"></span>
-                                            <span class="fullscreen"><i class="icon-search"></i></span>
                                             <img src="<?= PHOTO_URL . $ph->id ?>/small.jpg" alt="<?= $ph->comment ?>"/>
                                         </a>
-                                        <div class="portfolio-item-title">
-                                            <a href="<?= base_url() ?>/gallery">Gallery</a>
-                                            <p>
-                                                <?= $ph->title ?>
-                                            </p>
-                                        </div>
-                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                <?php if( $i % 3 == 2 ): ?>
+                                <?php if( $i % 3 == 2 || $i == count( $examples ) - 1 ): ?>
                             </div>
                             <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="clearfix">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Recent work end-->
 
-<!-- Latest Posts start --> 
+<div class="divider"></div>
+
 <div class="latest-posts">
     <div class="container">
         <div class="row">
@@ -483,43 +456,93 @@
             <div class="clearfix"></div>
             <div class="blog-showcase col-lg-12 col-md-12 col-sm-12 col-xs-12 animate_afb d1">
                 <ul>
-                    <li class="">
+                    <li>
                         <div class="blog-showcase-thumb col-lg-4">
                             <div class="post-body">
-                                <a class="post-item-link" href="gallery/aa-21.jpg" data-rel="prettyPhoto"><span class="post-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img alt="" src="<?= base_url() ?>/gallery/thumbs/aa-21.jpg"></a>
+                                <a class="post-item-link" href="<?= base_url() ?>/img/ex-img-1.jpg"
+                                   data-rel="prettyPhoto">
+                                    <span class="post-item-hover"></span>
+                                    <span class="fullscreen">
+                                        <i class="icon-search"></i>
+                                    </span>
+                                    <img alt="" src="<?= base_url() ?>/img/ex-img-1.jpg">
+                                </a>
                             </div>
                         </div>
                         <div class="blog-showcase-extra-info col-lg-4">
-                            <span><a href="#">Get a load of this</a></span>
-                            <h4><a href="#" class="title">My Cameras Speaks!</a></h4>
-                            <p>To let you in on a little secret... My cameras talk to me... I document the events here.</p>
-                            <a href="<?= base_url() ?>/gallery">View Gallery, Read the captions. <i class="icon-double-angle-right"></i></a>
+                            <span>Get a load of this</span>
+                            <h4>My Cameras Speaks!</h4>
+                            <p>To let you in on a little secret... My cameras talk to me... I
+                                document the events here.
+                            </p>
+                            <a href="<?= base_url() ?>/img/ex-img-1.jpg">
+                                View Gallery, Read the captions.
+                                <i class="icon-double-angle-right"></i>
+                            </a>
                         </div>
                     </li>
                     <li>
                         <div class="blog-showcase-thumb col-lg-4">
                             <div class="post-body">
-                                <a class="post-item-link" href="gallery/jm.jpg" data-rel="prettyPhoto"><span class="post-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img alt="" src="<?= base_url() ?>/gallery/jm.jpg"></a>
+                                <a class="post-item-link" href="gallery/jm.jpg"
+                                   data-rel="prettyPhoto">
+                                    <span class="post-item-hover">
+                                    </span>
+                                    <span class="fullscreen">
+                                        <i class="icon-search">
+                                        </i>
+                                    </span>
+                                    <img alt="" src="<?= base_url() ?>/img/jesse.jpg">
+                                </a>
                             </div>
                         </div>
                         <div class="blog-showcase-extra-info col-lg-4">
-                            <span><a href="#">Learn more </a></span>
-                            <h4><a href="#" class="title">Hey It's ME!</a></h4>
-                            <p>Learn some more about me. Maybe if you like me you will need me!</p>
-                            <a href="<?= base_url() ?>/about">More About Me <i class="icon-double-angle-right"></i></a>
+                            <span>
+                                <a href="#">Learn more
+                                </a>
+                            </span>
+                            <h4>
+                                <a href="#" class="title">Hey It's ME!
+                                </a>
+                            </h4>
+                            <p>Learn some more about me. Maybe if you like me you will need me!
+                            </p>
+                            <a href="<?= base_url() ?>/about">More About Me
+                                <i class="icon-double-angle-right">
+                                </i>
+                            </a>
                         </div>
                     </li>
                     <li class="blog-first-el">
                         <div class="blog-showcase-thumb col-lg-4">
                             <div class="post-body">
-                                <a class="post-item-link" href="gallery/aa-15.jpg" data-rel="prettyPhoto"><span class="post-item-hover"></span><span class="fullscreen"><i class="icon-search"></i></span><img alt="" src="<?= base_url() ?>/gallery/thumbs/aa-15.jpg"></a>
+                                <a class="post-item-link" href="<?= base_url() ?>img/ducks.jpg"
+                                   data-rel="prettyPhoto">
+                                    <span class="post-item-hover">
+                                    </span>
+                                    <span class="fullscreen">
+                                        <i class="icon-search">
+                                        </i>
+                                    </span>
+                                    <img alt="" src="<?= base_url() ?>/img/ducks.jpg">
+                                </a>
                             </div>
                         </div>
                         <div class="blog-showcase-extra-info col-lg-4">
-                            <span><a href="#">Follow, Follow</a></span>
-                            <h4><a href="#" class="title">FOLLOW!</a></h4>
-                            <p>Don't be like these ducks and not get it! Stay current and follow me! </p>
-                            <a href="<?= base_url() ?>/communities">Follow me and my friends here <i class="icon-double-angle-right"></i></a>
+                            <span>
+                                <a href="#">Follow, Follow
+                                </a>
+                            </span>
+                            <h4>
+                                <a href="#" class="title">FOLLOW!
+                                </a>
+                            </h4>
+                            <p>Don't be like these ducks and not get it! Stay current and follow me!
+                            </p>
+                            <a href="<?= base_url() ?>/communities">Follow me and my friends here
+                                <i class="icon-double-angle-right">
+                                </i>
+                            </a>
                         </div>
                     </li>
                 </ul>

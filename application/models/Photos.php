@@ -229,7 +229,7 @@ class Photos extends CI_Model {
 	$xsmall				= $this->resize_image( $original['full_path'], 100 );
 	$small				= $this->resize_image( $original['full_path'], 260 );
 	$medium				= $this->resize_image( $original['full_path'], 800 );
-	$large				= $this->resize_image( $original['full_path'], 1500 );
+	$large				= $this->resize_image( $original['full_path'], min( 1500, $original['image_width'] ) );
 
 	imagejpeg( $xsmall, $image_dir	. '/xsmall.jpg' );
 	imagejpeg( $small, $image_dir	. '/small.jpg' );

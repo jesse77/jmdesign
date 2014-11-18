@@ -79,7 +79,7 @@
                         <div class="container">
                             <div class="phone-email pull-left">
                                 <a><i class="icon-phone"></i> Phone : +780.937.4722</a>
-                                <a href="contact.html"><i class="icon-envelope"></i> Contact us</a>
+                                <a href="<?= base_url() ?>/contact"><i class="icon-envelope"></i> Contact us</a>
                             </div>
                             <div class="pull-right">
                                 <!-- Place this tag where you want the +1 button to render. -->
@@ -149,7 +149,7 @@
                                 </li>
                                 <li>
                                     <a <?= $data['active'] == 'contact' ? 'id="current"' : '' ?>
-                                       href="contact.html" class="sf-with-ul">
+                                       href="<?= base_url() ?>/contact" class="sf-with-ul">
                                         Contact Me
                                     </a>
                                     
@@ -230,7 +230,7 @@
                                         <i class="icon-envelope"></i>
                                         <p>
                                             <strong>Email:</strong>
-                                            <a href="contact.html">Contact us here</a>
+                                            <a href="<?= base_url() ?>/contact">Contact us here</a>
                                         </p>
                                     </li>
                                 </ul>
@@ -277,7 +277,9 @@
             </a>
         </div>
         <!-- Wrap End -->
-        
+        <script type="text/javascript">
+            var base_url	= "<?= base_url() ?>";
+        </script>
         <!-- Google+ Link -->
         <script type="text/javascript">
             (function() {
