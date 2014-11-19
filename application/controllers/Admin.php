@@ -65,7 +65,8 @@ class admin extends CI_Controller {
 	$log			= $this->logging;
 	$this->load->model( 'Photos' );
 	if( ! isset( $_FILES['file'] ) || $_FILES['file']['size'] === 0 ) {
-	    $log->error( 'Image uploading did not work. No file found to upload. Return false.' );
+	    $log->error( 'Image uploading did not work. No file found to upload. Return false.\n\t
+	     File given: %s', print_r( $_FILES, true ) );
 	    $error		= urlencode( "Image uploading did not work. No file found to upload." );
 	    redirect('admin/photos?error=' . $error );
 	}

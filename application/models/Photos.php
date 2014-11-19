@@ -150,7 +150,7 @@ class Photos extends CI_Model {
 
 	$return_output		= true;
 
-	$image_type		= pathinfo( $src_img, PATHINFO_EXTENSION );
+	$image_type		= strtolower( pathinfo( $src_img, PATHINFO_EXTENSION ) );
 
 	$log->debug( 'Source image type: %s', $image_type );
 	
