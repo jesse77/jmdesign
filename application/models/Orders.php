@@ -8,28 +8,38 @@ class Orders extends CI_Model {
     }
     function charge( $amount, $email )
     {
+	$log			= $this->logging;
 	// Set your secret key: remember to change this to your live secret key
 	// in production
 	// See your keys here https://manage.stripe.com/account
+
+	$log->debug( "Stripe API Key being used: %s", STRIPE_API_KEY );
+	$log->trace( "	Application Environment: %s", ENVIORNMENT );
 	
 	Stripe::setApiKey( STRIPE_API_KEY );
 
 	// Get the credit card details submitted by the form
-	$token = $_POST['stripeToken'];
+	$token			= $_POST['stripeToken'];
 	// Create the charge on Stripe's servers - this will charge the user's
 	// card
 	try {
-	    $charge = Stripe_Charge::create( [
-					      "amount"		=> $amount,
-					      "currency"	=> "cad",
-					      "card"		=> $token,
-					      "description"	=> $email ]
-					     );
+	    $charge		= Stripe_Charge::create( [
+							  "amount"	=> $amount,
+							  "currency"	=> "cad",
+							  "card"	=> $token,
+							  "description"	=> $email
+							  ] );
 	    return true;
-	} catch(Stripe_CardError $e) {
+	} catch( Stripe_CardError $e ) {
 	    echo 'The card has been declined <br />';
 
 	    return $e->getMessage();
 	}
     }
+
+    function test_charge()
+    {
+
+    }
+    
 }

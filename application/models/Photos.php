@@ -58,7 +58,14 @@ class Photos extends CI_Model {
 	    $log->error( 'id is null; return false' );
 	    return false;
 	}
+
+	if ( is_array( $id ) ) {
+	    $log->debug( 'Found array as id; Calling $this->get_mutliple()' );
+	    return $this->get_multiple( $id );
+	}
+	
 	$where			= "WHERE id = " . $id;
+	
 	$select			= sprintf( $this->select_query, $where );
 	$query			= $this->db->query( $select );
 	$photo			= $query->row();
@@ -70,6 +77,36 @@ class Photos extends CI_Model {
 	return $photo;
     }
 
+    function get_multiple( $ids )
+    {
+	$log			= $this->logging;
+	
+	if ( is_null( $ids ) ) {
+	    $log->error( '{ids} is null; return false' );
+	    return false;
+	}
+
+	if ( ! is_array( $ids ) ) {
+	    $log->error( 'Did not find array as {ids}; return false' );
+	    return false;
+	}
+	
+	$where			= sprintf( "WHERE id IN (%s)", implode( $ids, ',' ) );
+	
+	$select			= sprintf( $this->select_query, $where );
+	$query			= $this->db->query( $select );
+	$photos			= $query->result();
+	
+	$make_tags_array	= function( $value ) {
+	    $value->tags	= explode( ',', $value->tags );
+	};
+	
+	array_walk( $photos, $make_tags_array );
+	
+	$log->debug( 'Found %s images with ids [%s]', count( $query->num_rows ), implode( $ids, ', ' ) );
+	return $photos;
+    }
+    
     function limit( $start = 0, $count = 0 )
     {
 	$log			= $this->logging;
@@ -309,11 +346,34 @@ class Photos extends CI_Model {
 
     function test_get()
     {
-	$test_id			= $this->all()[0]->id;
+	$all				= $this->all();
+	$test_id			= $all[0]->id;
+	$test_array			= [ $all[0]->id, $all[1]->id, $all[2]->id ];
 
 	$test_name                      = "<b>Returns object.</b>";
 	$test                           = $this->get( $test_id );
 	$expected                       = 'is_object';
+	$this->unit->run( $test, $expected, $test_name );
+
+	$test_name                      = "<b>Returns array when {id} is array</b>";
+	$test                           = $this->get( $test_array );
+	$expected                       = 'is_array';
+	$this->unit->run( $test, $expected, $test_name );
+
+	$test_name                      = "<b>FAIL MODE: Search ID is null</b>";
+	$test                           = $this->get();
+	$expected                       = 'is_false';
+	$this->unit->run( $test, $expected, $test_name );
+    }
+
+    function test_get_multiple()
+    {
+	$all				= $this->all();
+	$test_array			= [ $all[0]->id, $all[1]->id, $all[2]->id ];
+
+	$test_name                      = "<b>Returns array when {id} is array</b>";
+	$test                           = $this->get( $test_array );
+	$expected                       = 'is_array';
 	$this->unit->run( $test, $expected, $test_name );
 
 	$test_name                      = "<b>FAIL MODE: Search ID is null</b>";

@@ -1,6 +1,9 @@
 
 jQuery(document).ready(function () {
 
+    $('.modal .close').on( 'click', function() {
+        $(this).parent('.modal').modal();
+    } )
 /*----------------------------------------------------*/
 /*	Search box expand Section
 /*----------------------------------------------------*/
@@ -8,8 +11,6 @@ jQuery(document).ready(function () {
 	jQuery(".search-text-box").focus(function(){
 	   jQuery("ul.social").animate({ marginLeft: "-120px"}, 450, "easeInSine")
 	});
-
-
 
 
 /*----------------------------------------------------*/
@@ -269,7 +270,7 @@ jQuery(window).load(function() {
 
 
 $(document).ready(function(){
-		$("a[rel^='prettyPhoto']").prettyPhoto({
+    $("[data-rel='prettyPhoto']").prettyPhoto({
 			animation_speed: 'fast', /* fast/slow/normal */
 			slideshow: 5000, /* false OR interval time in ms */
 			autoplay_slideshow: false, /* true/false */

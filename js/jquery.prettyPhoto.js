@@ -6,10 +6,9 @@
 ------------------------------------------------------------------------- */
 (function($) {
 	$.prettyPhoto = {version: '3.1.5'};
-	
 	$.fn.prettyPhoto = function(pp_settings) {
 		pp_settings = jQuery.extend({
-			hook: 'rel', /* the attribute tag to use for prettyPhoto hooks. default: 'rel'. For HTML5, use "data-rel" or similar. */
+			hook: 'data-rel', /* the attribute tag to use for prettyPhoto hooks. default: 'rel'. For HTML5, use "data-rel" or similar. */
 			animation_speed: 'fast', /* fast/slow/normal */
 			ajaxcallback: function() {},
 			slideshow: 5000, /* false OR interval time in ms */
@@ -95,7 +94,6 @@
 		
 		// Global variables accessible only by prettyPhoto
 		var matchedObjects = this, percentBased = false, pp_dimensions, pp_open,
-		
 		// prettyPhoto container specific
 		pp_contentHeight, pp_contentWidth, pp_containerHeight, pp_containerWidth,
 		
@@ -157,7 +155,7 @@
 			if(pp_images.length > settings.overlay_gallery_max) settings.overlay_gallery = false;
 			
 			set_position = jQuery.inArray($(this).attr('href'), pp_images); // Define where in the array the clicked item is positionned
-			rel_index = (isSet) ? set_position : $("a["+settings.hook+"^='"+theRel+"']").index($(this));
+			rel_index = (isSet) ? set_position : $("["+settings.hook+"^='"+theRel+"']").index($(this));
 			
 			_build_overlay(this); // Build the overlay {this} being the caller
 			
@@ -177,7 +175,7 @@
 		* @param title {String,Array} The title to be displayed with the picture, can also be an array containing all the titles.
 		* @param description {String,Array} The description to be displayed with the picture, can also be an array containing all the descriptions.
 		*/
-		$.prettyPhoto.open = function(event) {
+	    $.prettyPhoto.open = function(event) {
 			if(typeof settings == "undefined"){ // Means it's an API call, need to manually get the settings and set the variables
 				settings = pp_settings;
 				pp_images = $.makeArray(arguments[0]);

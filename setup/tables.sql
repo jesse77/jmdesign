@@ -34,3 +34,9 @@ CREATE TABLE orders (
        FOREIGN KEY( customer_id )	REFERENCES customers( id ),
        FOREIGN KEY( merchandise_id )	REFERENCES merchandise( id )
 );
+
+CREATE TABLE mediums (
+       id		INTEGER		PRIMARY KEY AUTOINCREMENT,
+       `name`		VARCHAR(50)	NOT NULL,
+       `price`		INTEGER		NOT NULL
+);

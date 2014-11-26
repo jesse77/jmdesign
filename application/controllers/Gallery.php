@@ -14,6 +14,6 @@ class Gallery extends CI_Controller {
 	$data['title']		= 'Prepare to be AMAZED!';
 	$data['active']		= 'gallery';
 	
-	$this->template->load( 'gallery', $data );
+	$this->template->load( ['modals/add-to-cart', 'gallery'], $data );
     }
 }

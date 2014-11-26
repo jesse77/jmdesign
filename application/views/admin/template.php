@@ -53,6 +53,11 @@
                             Tags
                         </a>
                     </li>
+                    <li>
+                        <a href="<?= site_url('admin/mediums') ?>">
+                            Mediums
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

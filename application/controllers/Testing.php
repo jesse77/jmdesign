@@ -23,11 +23,11 @@ class Testing extends CI_Controller {
     {
 	$log= $this->logging;
 
-	$models= array( 'photos' );
-	$tests= array();
+	$models		= array( 'photos' );
+	$tests		= array();
 
 	foreach( $models as $model ) {
-	    $tests= array_merge( $tests,
+	    $tests	= array_merge( $tests,
 				 $this->run_tests_in_model( $model, $func ) );
 	}
 	$this->print_report( $models, $tests );
