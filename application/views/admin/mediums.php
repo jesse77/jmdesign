@@ -11,13 +11,27 @@
                 
                 <div class="modal-body">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Medium Name</label>
-                            <input type="text" name="name" class="form-control"/>
+                        <div class="form-group row">
+                            <label class="col-lg-2">Name</label>
+                            <div class="input-group col-lg-6">
+                                <input type="text" name="name" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Medium Price</label>
-                            <input type="text" name="price" class="form-control"/>
+                        <div class="form-group row">
+                            <label class="col-lg-2">Price</label>
+                            <div class="input-group col-lg-6">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" name="price" class="form-control"/>
+                                <span class="input-group-addon">.00</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-2">Shipping</label>
+                            <div class="input-group col-lg-6">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" name="shipping" class="form-control"/>
+                                <span class="input-group-addon">.00</span>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -55,6 +69,10 @@
                             <label>Medium Price</label>
                             <input type="text" name="price" class="form-control price-field"/>
                         </div>
+                        <div class="form-group">
+                            <label>Medium Shipping</label>
+                            <input type="text" name="shipping" class="form-control shipping-field"/>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
@@ -74,11 +92,20 @@
 </h1>
 
 <table class="table table-striped table-condensed">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Shipping</th>
+        </tr>
+    </thead>
     <?php foreach( $mediums as $key => $medium ): ?>
     <tr>
         <td><?= $medium->id ?></td>
         <td><?= $medium->name ?></td>
-        <td><?= $medium->price ?></td>
+        <td>$<?= $medium->price / 100 ?>.00</td>
+        <td>$<?= $medium->shipping / 100 ?>.00</td>
         <td class="col-xs-2">
             <form method="post" action="<?= site_url('admin/delete_medium') ?>" class="pull-right">
                 <input type="hidden" name="id" value="<?= $medium->id ?>" />
@@ -91,7 +118,7 @@
         <td class="col-xs-1">
             <input type="button" class="btn btn-warning btn-sm edit-medium-btn" value="Edit"
                    data-id="<?= $medium->id ?>" data-name="<?= $medium->name ?>"
-                   data-price="<?= $medium->price ?>" />
+                   data-shipping="<?= $medium->shipping / 100 ?>" data-price="<?= $medium->price / 100 ?>" />
         </td>
     </tr>
     <?php endforeach; ?>
@@ -107,6 +134,7 @@
         $('#edit-medium-modal .id-field').val( $(this).attr('data-id') );
         $('#edit-medium-modal .name-field').val( $(this).attr('data-name') );
         $('#edit-medium-modal .price-field').val( $(this).attr('data-price') );
+        $('#edit-medium-modal .shipping-field').val( $(this).attr('data-shipping') );
         $('#edit-medium-modal').modal();
     } )
 

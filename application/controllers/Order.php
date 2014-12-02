@@ -5,9 +5,42 @@ class Order extends CI_Controller {
     public function index()
     {
 	$log			= $this->logging;
-	$data['title']		= 'Buy Photos!';
+	$data['title']		= 'Order Your Photos!';
 	$data['active']		= 'order';
+	if( $this->input->post( 'stripeToken' ) ) {
+	    
+	    $check		= $this->confirm_order();
+	    if( is_string( $check ) ) {
+		$data['validation_errors'] = $check;
+	    }
+	}
 	
 	$this->template->load( ['order'], $data );
+
+    }
+
+    function confirm_order()
+    {
+	$log			= $this->logging;
+	$data['title']		= 'Order Your Photos!';
+	$data['active']		= 'order';
+	$this->load->model( 'Orders' );
+	$this->load->model( 'Photos' );
+
+	$stripe_data		= $this->input->post( 'stripe' );
+	$log->trace( "Cart data sent from browser: \n". print_r( $this->input->post('cart'), true ) );
+	$token			= $stripe_data['id'];
+	$email			= $stripe_data['email'];
+	$token_type		= $this->input->post( 'stripeTokenType' );
+	$browser_cart		= json_decode( $this->input->post( 'cart' ) );
+	$cart			= $this->Photos->cart( $browser_cart );
+	$log->debug( "Token: %s", $token );
+	$log->debug( "Amount: %s", $cart['total'] );
+	$log->debug( "eMail: %s", $email );
+	
+
+	if( $this->Orders->charge( $token, $cart['total'], $email ) ) {
+	    $this->Ordres->record_order( json_encode( $stripe ), json_encode( $cart ) );
+	};
     }
 }

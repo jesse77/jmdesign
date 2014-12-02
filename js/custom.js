@@ -1,9 +1,18 @@
 
+function update_cart_count() {
+    if( Cart.items ) {
+        $( '.cart-count' )
+            .removeClass('hidden')
+            .text( '('+Cart.items.length+')' )
+    }
+}
 jQuery(document).ready(function () {
-
-    $('.modal .close').on( 'click', function() {
-        $(this).parent('.modal').modal();
+    // Fix Bootstrap issue with closing modals
+    $('[data-dismiss=modal]').on( 'click', function() {
+        $(this).parents('.modal').modal('hide');
     } )
+
+
 /*----------------------------------------------------*/
 /*	Search box expand Section
 /*----------------------------------------------------*/
@@ -11,7 +20,6 @@ jQuery(document).ready(function () {
 	jQuery(".search-text-box").focus(function(){
 	   jQuery("ul.social").animate({ marginLeft: "-120px"}, 450, "easeInSine")
 	});
-
 
 /*----------------------------------------------------*/
 /*	Keyframe animations enable

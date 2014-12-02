@@ -1,10 +1,13 @@
 var Cart			= new function() {
 
     this.items		= Modernizr.localstorage
-        ? JSON.parse( localStorage.cart || '[]' )
+        ? JSON.parse( localStorage.cart )
         : $.cookie( 'cart' );
-    
-    this.get			= function() {
+
+    this.fetched	= null;
+
+    this.fetch		= function() {
+        var $this	= this;
         $.ajax( {
             url: base_url + 'api/get_cart',
             data: {
@@ -12,25 +15,56 @@ var Cart			= new function() {
             },
             type: 'POST',
             success: function( json ) {
-                var cart		= JSON.parse( json );
+                var cart			= JSON.parse( json );
                 console.log( [ "Got results!", cart ] );
-                return cart;
+                console.log( "Total: " + cart.total );
+                $this.fetched			= cart;
+                return true;
             },
             error: function() {
                 console.log( ['Getting cart did not work...', arguments ]);
+                $this.fetched			= {};
+                return false;
+            }
+        } );
+    };
+    
+    this.charge		= function( form_data ) {
+        var $this	= this;
+        $.ajax( {
+            url: base_url + 'order/confirm_order',
+            data: {
+                stripe: form_data,
+                cart: JSON.stringify( $this.items )
+            },
+            type: 'POST',
+            success: function( json ) {
+                console.log( ['Charge successful', arguments ]);
+                return true;
+            },
+            error: function() {
+                console.log( ['Charging your card did not work...', arguments ]);
+                return false;
             }
         } );
     };
     
     this.empty			= function() {
-        this.items = {};
+        this.items = [];
         this.synchronize();
     };
     
     this.add			= function( item, type ) {
+
+        if( typeof item !== "number" )
+            console.log( "Non-numeric item id given." );
+
+        if( typeof type !== "number" )
+            console.log( "Non-numeric medium id given." );
+
         console.log( ["Adding item to cart: ", item, type ] );
         this.items.push( {
-            "type": type,
+            "medium_id": type,
             "photo_id": item
         } );
         this.synchronize();
@@ -49,7 +83,7 @@ var Cart			= new function() {
     };
 
     this.remove		= function( index ) {
-        delete this.items[ index ];
+        this.items.splice( index, 1 );
         this.synchronize();
     };
 };

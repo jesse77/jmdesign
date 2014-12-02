@@ -18,25 +18,17 @@ CREATE TABLE tags (
        active		BOOLEAN		DEFAULT 1
 );
 
-CREATE TABLE customers (
-       id		INTEGER		PRIMARY KEY AUTOINCREMENT,
-       `name`		VARCHAR(50)	NOT NULL,
-       email		VARCHAR(50)	NOT NULL,
-       address		TEXT		DEFAULT NULL
-);
-
 CREATE TABLE orders (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
-       customer_id	INTEGER		NOT NULL,
-       merchandise_id	INTEGER		NOT NULL,
-       ship_to		TEXT		NOT NULL,
-       comments		TEXT		DEFAULT NULL,
-       FOREIGN KEY( customer_id )	REFERENCES customers( id ),
-       FOREIGN KEY( merchandise_id )	REFERENCES merchandise( id )
+       shipped		BOOLEAN		DEFAULT 0,
+       shipping_json	TEXT		NOT NULL,
+       cart_json	TEXT		NOT NULL,
+       comments		TEXT		DEFAULT NULL
 );
 
 CREATE TABLE mediums (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
        `name`		VARCHAR(50)	NOT NULL,
-       `price`		INTEGER		NOT NULL
+       `price`		INTEGER		NOT NULL,
+       `shipping`	INTEGER		DEFAULT 0
 );

@@ -23,7 +23,7 @@ class Testing extends CI_Controller {
     {
 	$log= $this->logging;
 
-	$models		= array( 'photos' );
+	$models		= array( 'photos', 'orders' );
 	$tests		= array();
 
 	foreach( $models as $model ) {

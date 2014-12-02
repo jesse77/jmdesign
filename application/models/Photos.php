@@ -6,7 +6,8 @@ class Photos extends CI_Model {
     {
 	parent::__construct();
 	$this->select_query	= "
-  SELECT *
+  SELECT p.*,
+         tag_names.tags
     FROM photos p
     LEFT JOIN ( SELECT photo_id,
                   GROUP_CONCAT( t.name ) || '' tags
@@ -81,8 +82,8 @@ class Photos extends CI_Model {
     {
 	$log			= $this->logging;
 	
-	if ( is_null( $ids ) ) {
-	    $log->error( '{ids} is null; return false' );
+	if ( empty( $ids ) ) {
+	    $log->error( '{ids} is empty; return false' );
 	    return false;
 	}
 
@@ -105,6 +106,52 @@ class Photos extends CI_Model {
 	
 	$log->debug( 'Found %s images with ids [%s]', count( $query->num_rows ), implode( $ids, ', ' ) );
 	return $photos;
+    }
+
+    function cart( $data = null )
+    {
+	$log			= $this->logging;
+	$this->load->model( 'Mediums' );
+
+	if( empty( $data ) ) {
+	    $log->debug( "Empty cart; returning false" );
+	    return false;
+	}
+
+	$log->trace( "Cart data: ", print_r( $data, true ) );
+	$items			= array_map( function( $item ) {
+		if ( empty( $item->photo_id ) or empty( $item->medium_id ) )
+		    return null;
+
+		return [ 'photo'	=> $this->get( $item->photo_id ),
+			 'medium'	=> $this->Mediums->get( $item->medium_id )
+			 ];
+	    }, $data );
+
+	$items			= array_filter( $items );
+
+	$subtotal		= 0;
+	$shipping		= 0;
+	$total			= 0;
+	
+	foreach( $items as $item ) {
+	    $subtotal		+= (int) ( $item['medium']->price );
+
+	    $shipping		+= (int) ( $item['medium']->shipping );
+
+	    $total		+= (int) ( $item['medium']->price );
+	    $total		+= (int) ( $item['medium']->shipping );
+	};
+	
+	$cart['items']		= $items;
+	$cart['total'] 		= $total;
+	$cart['shipping']	= $shipping;
+	$cart['subtotal'] 	= $subtotal;
+
+	$log->trace( 'Cart: [%s]', print_r( $cart, true ) );
+	
+	return $cart;
+	
     }
     
     function limit( $start = 0, $count = 0 )
@@ -382,6 +429,36 @@ class Photos extends CI_Model {
 	$this->unit->run( $test, $expected, $test_name );
     }
 
+    function test_cart()
+    {
+	$this->load->model( 'Mediums' );
+	$photos				= $this->all();
+	$mediums			= $this->Mediums->all();
+	$cart				= [ (object) [
+						      'medium_id'	=> $mediums[0]->id,
+						      'photo_id'	=> $photos[0]->id
+						      ],
+					    (object) [
+						      'medium_id'	=> $mediums[0]->id,
+						      'photo_id'	=> $photos[1]->id
+						      ],
+					    (object) [
+						      'medium_id'	=> $mediums[1]->id,
+						      'photo_id'	=> $photos[2]->id
+						      ]
+					    ];
+
+	$test_name                      = "<b>Fails when given empty value.</b>";
+	$test                           = $this->cart( null );
+	$expected                       = 'is_false';
+	$this->unit->run( $test, $expected, $test_name );
+
+	$test_name                      = "<b>Fails when given empty value.</b>";
+	$test                           = $this->cart( $cart );
+	$expected                       = 'is_array';
+	$this->unit->run( $test, $expected, $test_name );
+    }
+    
     function test_limit()
     {
 	$test_count			= count( $this->all() );

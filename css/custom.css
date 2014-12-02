@@ -18,3 +18,19 @@
 .hover {
   cursor: pointer;
 }
+
+.large {
+  font-size: 25px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.break-btm {
+  margin-bottom: 15px;
+}
+
+.break-top {
+  margin-top: 15px;
+}

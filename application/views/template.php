@@ -162,15 +162,10 @@
                                 </li>
                                 
                                 <li>
-                                    <a href="https://docs.google.com/forms/d/1V1HRH1vYxKPpM2JQ5_iu4XKyS7aD2Qt4VatOzWVSZ7k/viewform" target="_blank" class="sf-with-ul">
-                                        Buy Prints!
-                                    </a>
-                                </li>
-                                
-                                <li>
                                     <a <?= $data['active'] == 'order' ? 'id="current"' : '' ?>
-                                       href="<?= base_url() ?>/contact" class="sf-with-ul">
-                                        Contact Me
+                                       href="<?= base_url() ?>/order" class="sf-with-ul">
+                                        Buy Photos!
+                                        <span class="cart-count hidden"></span>
                                     </a>
                                 </li>
                             </ul>
@@ -344,5 +339,10 @@
         <script src="<?= base_url() ?>/js/jquery.cookie.js"></script>
         <script src="<?= base_url() ?>/js/portfolio.js"></script>
         <script src="<?= base_url() ?>/js/cart.js"></script>
+
+        <script type="text/javascript">
+            update_cart_count();
+        </script>
+        
     </body>
 </html>

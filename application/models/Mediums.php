@@ -15,12 +15,35 @@ class Mediums extends CI_Model {
 	$result			= $query->result();
 
 	$log->trace( print_r( $result, true) );
-	$log->info( "Found %s mediums in database.", $query->num_rows() );
+	$log->debug( "Found %s mediums in database.", $query->num_rows() );
 
 	return $result;
     }
 
-    function add( $name = null, $price = null )
+    function get( $id = null )
+    {
+	$log			= $this->logging;
+
+	if( empty( $id ) ) {
+	    $log->error( 'Empty id given' );
+	    return false;
+	}
+	
+	$select			= "
+ SELECT *
+   FROM mediums m
+  WHERE id = " . $id;
+	$query			= $this->db->query( $select );
+	$medium			= $query->row();
+
+	
+	
+	$log->trace( print_r( $medium, true) );
+
+	return $medium;
+    }
+
+    function add( $name = null, $price = null, $shipping = 0 )
     {
 	$log			= $this->logging;
 	if( is_null( $name ) ) {
@@ -33,7 +56,9 @@ class Mediums extends CI_Model {
 	    return false;
 	}
 
-	$this->db->insert( 'mediums', ['name' => $name, 'price' => $price] );
+	$this->db->insert( 'mediums', [ 'name'		=> $name,
+					'price'		=> $price * 100,
+					'shipping'	=> $shipping * 100] );
     }
 
     function edit( $id = null, $data = null )
@@ -50,11 +75,13 @@ class Mediums extends CI_Model {
 	    return false;
 	}
 
-	$update_data		= [ 'title'	=> $data['name'],
-				    'comment'	=> $data['price'] ] ;
+	$update_data		= [ 'name'	=> $data['name'],
+				    'price'	=> $data['price'] * 100,
+				    'shipping'	=> $data['shipping'] * 100
+				    ];
 
 	$this->db->where( ['id' => $id] );
-	$this->db->update( 'photos', $update_data );
+	$this->db->update( 'mediums', $update_data );
     }
     
     function delete( $id = null )

@@ -41,9 +41,9 @@
                                     <span class="fullscreen two-icons">
                                         <i href="<?= base_url() ?>img/uploaded/<?= $photo->id ?>/large.jpg"
                                            data-rel="prettyPhoto" class="icon-search hover"></i>
-                                        <i class="icon-shopping-cart red"
+                                        <i class="icon-shopping-cart red hover add-to-cart-open-modal"
                                            data-photo-id="<?= $photo->id ?>"
-                                           data-action="add-to-cart" ></i>
+                                           data-toggle="modal" data-target="#add-to-cart" ></i>
                                     </span>
                                     <img src="<?= base_url() ?>img/uploaded/<?= $photo->id ?>/small.jpg"
                                          alt="<?= $photo->comment ?>"/>
@@ -65,4 +65,3 @@
     </div>
 </div>
 <div class="divider"></div>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>

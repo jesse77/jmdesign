@@ -121,7 +121,9 @@ class admin extends CI_Controller {
     function add_medium()
     {
 	$this->load->model('Mediums');
-	$this->Mediums->add( $this->input->get_post('name'),  $this->input->get_post('price') );
+	$this->Mediums->add( $this->input->get_post('name'),
+			     $this->input->get_post('price'),
+			     $this->input->get_post('shipping') );
 	redirect( 'admin/mediums' );
     }
 
@@ -130,7 +132,7 @@ class admin extends CI_Controller {
 	$this->load->model( 'Mediums' );
 	$data['name']		= $this->input->post( 'name' );
 	$data['price']		= $this->input->post( 'price' );
-
+	$data['shipping']	= $this->input->post( 'shipping' );
 	$this->Mediums->edit( $this->input->post('id'), $data );
 	redirect( 'admin/mediums' );
     }
