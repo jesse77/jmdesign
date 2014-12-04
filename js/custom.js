@@ -1,5 +1,17 @@
 
+function update_cart_count() {
+    if( Cart.items ) {
+        $( '.cart-count' )
+            .removeClass('hidden')
+            .text( '('+Cart.items.length+')' )
+    }
+}
 jQuery(document).ready(function () {
+    // Fix Bootstrap issue with closing modals
+    $('[data-dismiss=modal]').on( 'click', function() {
+        $(this).parents('.modal').modal('hide');
+    } )
+
 
 /*----------------------------------------------------*/
 /*	Search box expand Section
@@ -8,9 +20,6 @@ jQuery(document).ready(function () {
 	jQuery(".search-text-box").focus(function(){
 	   jQuery("ul.social").animate({ marginLeft: "-120px"}, 450, "easeInSine")
 	});
-
-
-
 
 /*----------------------------------------------------*/
 /*	Keyframe animations enable
@@ -269,7 +278,7 @@ jQuery(window).load(function() {
 
 
 $(document).ready(function(){
-		$("a[rel^='prettyPhoto']").prettyPhoto({
+    $("[data-rel='prettyPhoto']").prettyPhoto({
 			animation_speed: 'fast', /* fast/slow/normal */
 			slideshow: 5000, /* false OR interval time in ms */
 			autoplay_slideshow: false, /* true/false */

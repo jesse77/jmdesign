@@ -29,7 +29,7 @@ setup: build server_file apache_config server_users database
 build:
 	@echo -e ${cc_white} "Installing necessary packages" ${cc_normal};
 	sudo apt-get update;
-	sudo apt-get install	apache2 libapache2-mod-php5 \
+	sudo apt-get install	apache2 libapache2-mod-php5 php5-curl \
 				apache2-utils php5-sqlite sqlite3 libsqlite3-dev;
 
 codeigniter:

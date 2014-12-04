@@ -111,5 +111,39 @@ class admin extends CI_Controller {
 	$this->Tags->delete( $id );
 	redirect( 'admin/tags' );
     }
+
+    function mediums()
+    {
+	$this->load->model('Mediums');
+	$data			= [];
+	$data['mediums']	= $this->Mediums->all();
+	$this->template->admin( 'admin/mediums', $data );
+    }
+
+    function add_medium()
+    {
+	$this->load->model('Mediums');
+	$this->Mediums->add( $this->input->get_post('name'),
+			     $this->input->get_post('price'),
+			     $this->input->get_post('shipping') );
+	redirect( 'admin/mediums' );
+    }
+
+    function edit_medium()
+    {
+	$this->load->model( 'Mediums' );
+	$data['name']		= $this->input->post( 'name' );
+	$data['price']		= $this->input->post( 'price' );
+	$data['shipping']	= $this->input->post( 'shipping' );
+	$this->Mediums->edit( $this->input->post('id'), $data );
+	redirect( 'admin/mediums' );
+    }
+
+    function delete_medium() {
+	$this->load->model( 'Mediums' );
+	$id			= $this->input->post( 'id' );
+	$this->Mediums->delete( $id );
+	redirect( 'admin/mediums' );
+    }
     
 }

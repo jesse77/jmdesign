@@ -8,12 +8,14 @@ class Gallery extends CI_Controller {
 
 	$this->load->model( 'Photos' );
 	$this->load->model( 'Tags' );
+	$this->load->model( 'Mediums' );
 
 	$data['photos']		= $this->Photos->all();
+	$data['mediums']	= $this->Mediums->all();
 	$data['tags']		= $this->Tags->all();
 	$data['title']		= 'Prepare to be AMAZED!';
 	$data['active']		= 'gallery';
 	
-	$this->template->load( 'gallery', $data );
+	$this->template->load( ['modals/add-to-cart', 'gallery'], $data );
     }
 }

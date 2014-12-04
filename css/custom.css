@@ -2,3 +2,35 @@
 .table.table-align-middle th {
   vertical-align: middle
 }
+
+.fullscreen.two-icons {
+  left: 25%;
+  margin-left: 0;
+  width: 50%;
+  text-align: center;
+}
+
+.fullscreen i.red {
+  background-color: rgb(255, 24, 24);
+  opacity: 0.8;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.large {
+  font-size: 25px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.break-btm {
+  margin-bottom: 15px;
+}
+
+.break-top {
+  margin-top: 15px;
+}

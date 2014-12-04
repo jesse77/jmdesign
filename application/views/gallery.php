@@ -3,8 +3,15 @@
         <div class="row">
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">
                 
-                Welcome to the Gallery! You made it! Hopefully it's worth your time... If not, well, I hope it doesn't come to that... </br></br> *NEW* You may now submit an order for a custom print, by me !</br> Just fill out the form and I will contact you myself! So really thats a double win for you... Or a double loss and my double win... <br/><br/>Anyway it's time to ORDER AWAY!  <a href="https://docs.google.com/forms/d/1V1HRH1vYxKPpM2JQ5_iu4XKyS7aD2Qt4VatOzWVSZ7k/viewform" target="_blank"  > Fill out this form! </a>
-                
+                <div class="lead">
+                    Welcome to the Gallery! You made it! Hopefully it's worth your time... If not,
+                    well, I hope it doesn't come to that...
+                </div>
+                <div>
+                    <b> *NEW* You can now order and buy prints right online! for custom prints!</b>
+                </div>
+                Just select hover over an image click the cart button to choose them and then click the Buy Photos button in the menu!
+                <div class="break-top">Anyway it's time to ORDER AWAY!</div>
                 
                 <div class="divider"></div>
                 <div id="plusgallery" data-userid="jessemartineau" data-type="google"></div>
@@ -30,10 +37,14 @@
                         <?php foreach( $photos as $photo ): ?>
                         <div class="item col-lg-3 col-md-3 col-sm-3 col-xs-12 <?= implode( $photo->tags, ' ' ) ?>">
                             <div class="portfolio-item">
-                                <a href="<?= base_url() ?>img/uploaded/<?= $photo->id ?>/large.jpg" class="portfolio-item-link" data-rel="prettyPhoto" >
+                                <a class="portfolio-item-link" >
                                     <span class="portfolio-item-hover"></span>
-                                    <span class="fullscreen">
-                                        <i class="icon-search"></i>
+                                    <span class="fullscreen two-icons">
+                                        <i href="<?= base_url() ?>img/uploaded/<?= $photo->id ?>/large.jpg"
+                                           data-rel="prettyPhoto" class="icon-search hover"></i>
+                                        <i class="icon-shopping-cart red hover add-to-cart-open-modal"
+                                           data-photo-id="<?= $photo->id ?>"
+                                           data-toggle="modal" data-target="#add-to-cart" ></i>
                                     </span>
                                     <img src="<?= base_url() ?>img/uploaded/<?= $photo->id ?>/small.jpg"
                                          alt="<?= $photo->comment ?>"/>
