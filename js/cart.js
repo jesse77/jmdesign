@@ -1,9 +1,8 @@
 var Cart			= new function() {
-
     this.items		= Modernizr.localstorage
-        ? JSON.parse( localStorage.cart )
+        ? JSON.parse( localStorage.cart || '[]' )
         : $.cookie( 'cart' );
-
+    
     this.fetched	= null;
     this.charged	= null;
 
