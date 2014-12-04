@@ -42,7 +42,10 @@ class Order extends CI_Controller {
 	$log->debug( "Amount: %s", $cart['total'] );
 	$log->debug( "eMail: %s", $email );
 	
-	$this->Orders->email_admin( $stripe_data, $cart );
+	if( ! $this->Orders->email_admin( $stripe_data, $cart ) ) {
+	    $log->error( 'Did not send notification email, so we are not charging the card.' );
+	    return false;
+	};
 	return $this->Orders->charge( $token, $cart['total'], $email );
     }
 

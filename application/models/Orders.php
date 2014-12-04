@@ -73,14 +73,14 @@ class Orders extends CI_Model {
 
 	if( $test_page ){
 	    $this->load->view( 'emails/admin', $data );
-	    return true;
+	    return false;
 	}
 
 	$message		= $this->load->view( 'emails/admin', $data, true );
 
 	$this->email->message( $message );
 
-	$this->email->send();	
+	return $this->email->send();
     }
 
     function new_customer( $stripe_token = null, $email = null )
