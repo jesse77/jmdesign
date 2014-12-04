@@ -22,25 +22,28 @@ class Order extends CI_Controller {
     function confirm_order()
     {
 	$log			= $this->logging;
-	$data['title']		= 'Order Your Photos!';
-	$data['active']		= 'order';
+
 	$this->load->model( 'Orders' );
 	$this->load->model( 'Photos' );
-
+	
 	$stripe_data		= $this->input->post( 'stripe' );
-	$log->trace( "Cart data sent from browser: \n". print_r( $this->input->post('cart'), true ) );
+
+	$log->trace( "Data sent from browser: \n". print_r( $this->input->post(), true ) );
+
 	$token			= $stripe_data['id'];
 	$email			= $stripe_data['email'];
 	$token_type		= $this->input->post( 'stripeTokenType' );
 	$browser_cart		= json_decode( $this->input->post( 'cart' ) );
 	$cart			= $this->Photos->cart( $browser_cart );
+
+	$log->trace1( "Cart: \n". print_r( $cart, true ) );
+
 	$log->debug( "Token: %s", $token );
 	$log->debug( "Amount: %s", $cart['total'] );
 	$log->debug( "eMail: %s", $email );
 	
-
-	if( $this->Orders->charge( $token, $cart['total'], $email ) ) {
-	    $this->Ordres->record_order( json_encode( $stripe ), json_encode( $cart ) );
-	};
+	$this->Orders->email_admin( $stripe_data, $cart );
+	return $this->Orders->charge( $token, $cart['total'], $email );
     }
+
 }

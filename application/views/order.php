@@ -25,7 +25,7 @@
                         <th>Price</th>
                     </tr>
                 </thead>
-                <tbody class="order-container">
+                <tbody class="dynamic-area order-container">
                 </tbody>
                 <tfoot>
                     <tr>
@@ -33,21 +33,21 @@
                         <td></td>
                         <td></td>
                         <td class="text-right bold">Subtotal</td>
-                        <td class="subtotal-cell">0</td>
+                        <td class="dynamic-area subtotal-cell">0</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-right bold">Shipping</td>
-                        <td class="shipping-cell">0</td>
+                        <td class="dynamic-area shipping-cell">0</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-right bold">Total</td>
-                        <td class="total-cell">0</td>
+                        <td class="dynamic-area total-cell">0</td>
                     </tr>
                     <tr>
                         <td colspan="4">
@@ -69,6 +69,10 @@
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript">
     $(document).ready( function() {
+
+        var table		= $('.order-container');
+
+        Cart.fetch();
 
         function build_cart( cart )
         {
@@ -97,27 +101,63 @@
                                      .addClass( 'img-thumbnail' ) ),
                         $('<td/>').html( item.medium.name ),
                         $('<td/>').html( item.photo.title ),
-                        $('<td/>').html( '$' + item.medium.price / 100 + '.00' ),
+                        $('<td/>').html( '$' + item.medium.price / 100 + '.00 CAD' ),
                     ] )
                 )
             } );
 
-            $('.shipping-cell').html( '$' + cart.shipping / 100 + '.00' );
-            $('.subtotal-cell').html( '$' + cart.subtotal / 100 + '.00' );
-            $('.total-cell').html( '$' + cart.total / 100 + '.00' );
+            $('.shipping-cell').html( '$' + cart.shipping / 100 + '.00 CAD' );
+            $('.subtotal-cell').html( '$' + cart.subtotal / 100 + '.00 CAD' );
+            $('.total-cell').html( '$' + cart.total / 100 + '.00 CAD' );
             
             $('.order-body').removeClass('hidden');
             
             // Configure custom stripe button.
+            var token		= <?= ENVIRONMENT === "production"
+		? "'pk_live_aL0pvZb3s7aZclZmdV6Md3je'"
+		: "'pk_test_qWBwWNmkru63noM9zXZssZvC'" ?>;
+
             var handler		= StripeCheckout.configure( {
-                key: 'pk_test_qWBwWNmkru63noM9zXZssZvC',
+                key: token,
                 image: '/img/tiny-logo.jpg',
                 name: "Credit Card Information",
                 address: true,
-                phone: true,
                 token: function( form ) {
                     console.log( [ "Stripe form: ", form ] );
+
                     Cart.charge( form );
+                    setTimeout( function() {
+                        
+                        var interval		= setInterval(  function() {
+                            if( Cart.charged === null )
+                                return;
+
+                            if( Cart.charged === true ) {
+                                $( '.dynamic-area' ).html('');
+                                $( '.order-body' ).prepend(
+                                    $('<div />')
+                                        .addClass( 'alert alert-success' )
+                                        .html( 'Your order has been placed! <br /> You should receive email confirmation of your order.' )
+                                );
+                                update_cart_count();
+                                Cart.charged	= null;
+                            }
+                            else {
+                                $( '.order-body' ).prepend(
+                                    $('<div />')
+                                        .addClass( 'alert alert-danger' )
+                                        .html( 'Something went wrong with your order! Please contact support.' )
+                                );
+                                Cart.charged	= null;
+                            }
+                            cancel_interval();
+                        }, 100 );
+                        
+                        var cancel_interval	= function() {
+                            clearInterval( interval );
+                        }
+                    }, 300 );
+
                 }
             } );
 
@@ -131,10 +171,6 @@
             } );
             
         }
-
-        var table		= $('.order-container');
-
-        Cart.fetch();
 
         if( ! Cart.items ) {
             $('#no-photo-alert').removeClass( 'hidden' );

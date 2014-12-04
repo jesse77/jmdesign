@@ -54,9 +54,33 @@ class Orders extends CI_Model {
 	return true;
     }
 
-    function send_email()
+    function email_admin( $order = null, $cart = null, $test_page = false )
     {
+	$log			= $this->logging;
 
+	$this->load->library( 'email' );
+
+	$log->info( "Order data to be a checkin out:\n %s", print_r( $order, true ) );
+
+	$this->email->from( $order['email'], $order['card']['name'] );
+	$this->email->to( CONTACT_EMAIL );
+	$this->email->bcc( 'travis@mottershead.biz' );
+
+	$this->email->subject( 'Somebody Bought Something!' );
+
+	$data['order']		= $order;
+	$data['cart']		= $cart;
+
+	if( $test_page ){
+	    $this->load->view( 'emails/admin', $data );
+	    return true;
+	}
+
+	$message		= $this->load->view( 'emails/admin', $data, true );
+
+	$this->email->message( $message );
+
+	$this->email->send();	
     }
 
     function new_customer( $stripe_token = null, $email = null )

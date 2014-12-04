@@ -5,6 +5,7 @@ var Cart			= new function() {
         : $.cookie( 'cart' );
 
     this.fetched	= null;
+    this.charged	= null;
 
     this.fetch		= function() {
         var $this	= this;
@@ -40,10 +41,13 @@ var Cart			= new function() {
             type: 'POST',
             success: function( json ) {
                 console.log( ['Charge successful', arguments ]);
+                $this.empty();
+                $this.charged	= true;
                 return true;
             },
             error: function() {
                 console.log( ['Charging your card did not work...', arguments ]);
+                $this.charged	= false;
                 return false;
             }
         } );
