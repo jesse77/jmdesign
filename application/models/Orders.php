@@ -60,8 +60,10 @@ class Orders extends CI_Model {
 
 	$this->load->library( 'email' );
 
-	$log->info( "Order data to be a checkin out:\n %s", print_r( $order, true ) );
-
+	$log->trace1( "Order data to be a checkin out:\n %s", print_r( $order, true ) );
+	$log->info( "Sending order notification email to %s", CONTACT_EMAIL );
+	$config['mailtype']	= 'html';
+	$this->email->initialize($config);
 	$this->email->from( $order['email'], $order['card']['name'] );
 	$this->email->to( CONTACT_EMAIL );
 	$this->email->bcc( 'travis@mottershead.biz' );
@@ -79,6 +81,37 @@ class Orders extends CI_Model {
 	$message		= $this->load->view( 'emails/admin', $data, true );
 
 	$this->email->message( $message );
+	$log->trace2( "Order notification html: \n %s\n", $message );
+
+	return $this->email->send();
+    }
+
+    function email_customer( $order = null, $cart = null, $test_page = false )
+    {
+	$log			= $this->logging;
+
+	$this->load->library( 'email' );
+
+	$log->info( "Sending order receipt email to %s", $order['email'] );
+	$config['mailtype']	= 'html';
+	$this->email->initialize($config);
+	$this->email->from(CONTACT_EMAIL, $order['card']['name'] );
+	$this->email->to( $order['email'] );
+
+	$this->email->subject( 'Thanks for your order!' );
+
+	$data['order']		= $order;
+	$data['cart']		= $cart;
+
+	if( $test_page ){
+	    $this->load->view( 'emails/admin', $data );
+	    return false;
+	}
+
+	$message		= $this->load->view( 'emails/receipt', $data, true );
+
+	$this->email->message( $message );
+	$log->trace2( "Order receipt html: \n %s\n", $message );
 
 	return $this->email->send();
     }

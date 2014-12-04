@@ -1,14 +1,11 @@
+
 <html>
 <body>
-<h1>There was an order placed for your pictures!</h1>
-<?php if(ENVIRONMENT !== "production"): ?>
-<h2>This was just a test</h2>
-<?php endif; ?>
+<h1>Thank you for your purchase from jessemartineau.com!</h1>
 <div>
     <h3>Order</h3>
     <table>
         <tr>
-            <th></th>
             <th></th>
             <th>Name</th>
             <th>Medium</th>
@@ -68,10 +65,6 @@
     <div>
         ZIP Code: <?= $order['card']['address_zip'] ?>
     </div>
-    <br /><br />
-
-    <h4>Check Stripe for more information!</h4>
-    <div>Order ID: <?= $order['id'] ?></div>
 </div>
 </body>
 </html>

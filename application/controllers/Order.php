@@ -46,6 +46,10 @@ class Order extends CI_Controller {
 	    $log->error( 'Did not send notification email, so we are not charging the card.' );
 	    return false;
 	};
+	if( ! $this->Orders->email_customer( $stripe_data, $cart ) ) {
+	    $log->error( 'Did not send receipt email, so we are not charging the card.' );
+	    return false;
+	};
 	return $this->Orders->charge( $token, $cart['total'], $email );
     }
 
