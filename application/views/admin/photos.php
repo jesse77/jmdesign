@@ -104,8 +104,8 @@
 <table class="table table-striped table-align-middle">
     <tr>
         <th>id</th>
-        <th></th>
-        <th>Status</th>
+        <th style="width: 80px;"></th>
+        <th style="width: 80px"></th>
         <th>Title</th>
         <th>Tags</th>
         <th>Comment</th>
