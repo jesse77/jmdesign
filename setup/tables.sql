@@ -26,6 +26,13 @@ CREATE TABLE orders (
        comments		TEXT		DEFAULT NULL
 );
 
+CREATE TABLE featured (
+       id		INTEGER		PRIMARY KEY AUTOINCREMENT,
+       `price`		INTEGER		NOT NULL,
+       photo_id		INTEGER		NOT NULL,
+       medium_id	INTEGER		NOT NULL
+);
+
 CREATE TABLE mediums (
        id		INTEGER		PRIMARY KEY AUTOINCREMENT,
        `name`		VARCHAR(50)	NOT NULL,

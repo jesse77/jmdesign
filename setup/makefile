@@ -17,11 +17,13 @@ all: help
 help:
 	@echo -e ${cc_white}
 	@echo	"	all (default)	- Display this help text"
-	@echo	"	setup		- Runs all the setup procedures"
-	@echo	"	build		- Installs necessary packages"
 	@echo	"	apache_config	- Setup apache2 site configurations"
-	@echo	"	server_users	- Setup apache2 server users"
+	@echo	"	build		- Installs necessary packages"
+	@echo	"	codeigniter	- Sets up codeigniter config file"
 	@echo	"	database	- Build SQLite database and tables"
+	@echo	"	export_database	- exports the database and names it with a timestamp"
+	@echo	"	setup		- Runs all the setup procedures"
+	@echo	"	server_users	- Setup apache2 server users"
 	@echo -e ${cc_normal}
 
 setup: build server_file apache_config server_users database
