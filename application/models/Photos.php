@@ -6,24 +6,18 @@ class Photos extends CI_Model {
     {
 	parent::__construct();
 	$this->select_query	= "
-  SELECT * FROM(
-           SELECT p.*,
-                  f.id as feature_id,
-                  tag_names.tags
-             FROM photos p
-             LEFT JOIN ( SELECT photo_id,
-                           GROUP_CONCAT( t.name ) || '' tags
-                      FROM photo_has_tag pht
-                      JOIN tags t
-                        ON t.id = pht.tag_id
-                     GROUP BY photo_id )
-               AS tag_names
-               ON p.id = tag_names.photo_id
-             LEFT JOIN featured f
-               ON p.id = f.photo_id
-         %s)
-   GROUP BY id
-   ORDER BY timestamp desc
+  SELECT p.*,
+         tag_names.tags
+    FROM photos p
+    LEFT JOIN ( SELECT photo_id,
+                  GROUP_CONCAT( t.name ) || '' tags
+             FROM photo_has_tag pht
+             JOIN tags t
+               ON t.id = pht.tag_id
+            GROUP BY photo_id )
+      AS tag_names
+      ON p.id = tag_names.photo_id
+        %s
 ";
     }
 
