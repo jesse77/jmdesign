@@ -34,3 +34,52 @@
 .break-top {
   margin-top: 15px;
 }
+
+.break-left {
+  margin-left: 15px;
+}
+
+.break-right {
+  margin-right: 15px;
+}
+
+tr.featured-row td {
+  background: rgba(255, 0, 255, 0.3) !important;
+}
+
+.featured {
+  color: white !important;
+  background: rgba(254, 75, 254, 1) !important;
+  text-shadow: 1px 1px 1px black;
+}
+
+.btn-featured:hover {
+  background: rgba(254, 24, 254, 1) !important;
+  
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+table.featured-select tr:hover td {
+  cursor: pointer;
+  background: rgba(255, 0, 255, 0.2) !important;
+}
+
+.no-click {
+  cursor: default;
+}
+
+.graphic-select-group .graphic-select {
+  padding: 15px;
+  margin: 5px;
+  background: white;
+  border: #888 1px solid;
+}
+
+.graphic-select-group .graphic-select:hover {
+  color: white;
+  cursor: pointer;
+  background: #666;
+}

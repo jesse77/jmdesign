@@ -1,4 +1,4 @@
-<div class="modal fade" id="add-to-cart" style="z-index: 100000">
+<div class="modal fade" id="add-to-cart" style="z-index: 100000; width: 1000px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,28 +9,26 @@
                 <h4 class="modal-title">Add to cart!</h4>
             </div>
             <div class="modal-body">
-                <div class="modal-body">
-                    <div class="text-center">
+                <div class="modal-body row">
+                    <div class="col-md-5">
                         <img src="" class="img-thumbnail preview" alt="" />
-                        <br />
-                        <br />
-                        <div class="form-group">
-                            <input type="hidden" name="photo_id" />
-                            <select name="medium"class="form-control col-lg-3" >
-                                <option disabled selected>
-                                    Select Format
-                                </option>
-                                <?php foreach( $mediums as $medium ): ?>
-                                <option	value="<?= $medium->id ?>" >
-                                    <?= $medium->name ?> ~~
-                                    $<?= $medium->price/100 ?>.00 CAD
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
+                    </div>
+                    
+                    <div class="form-group col-md-7">
+                        <input type="hidden" name="photo_id" />
+                        <h3>Select Format</h3>
+                        <input type="hidden" name="medium" class="form-control col-lg-3" >
+                        <div class="graphic-select-group">
+                            <?php foreach( $mediums as $medium ): ?>
+                            <span class="graphic-select col-md-8 col-xs-12" data-value="<?= $medium->id ?>" >
+                                <?= $medium->name ?><br />
+                                Price: $<?= $medium->price/100 ?>.00 CAD
+                            </span>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer row">
                     <input type="button" class="btn btn-default"
                            data-dismiss="modal" value="Close"/>
                     <input class="btn btn-default" id="add-to-cart-btn" type="button"

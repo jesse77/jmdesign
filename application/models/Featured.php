@@ -8,7 +8,8 @@ class Featured extends CI_Model {
 	$log->debug( 'Get featured image' );
 	$query		= $this->db->query( "
   SELECT *
-    FROM featured" );
+    FROM featured
+   ORDER BY id desc" );
 
 	return $query->row();
     }
@@ -31,17 +32,22 @@ class Featured extends CI_Model {
 	    $log->error( '{medium_id} is not numeric; return false.' );
 	    return false;
 	}
-	
-	$query		= $this->db->insert( 'featured', [ 'photo_id'	=> $photo_id,
-							   'medium_id'	=> $medium_id,
-							   'price'	=> $price
-							   ] );
-	if( $query )
-	    $log->info( 'Featured photo. Photo id: %s. Medium id: %s. Price: %s', $photo_id, $medium_id, $price );
-	else 
-	    $log->error( 'Curiously enough, insert query did not work. Returning false.' );
 
-	return (bool) $query;
+	$to_insert	= [ 'photo_id'	=> $photo_id,
+			    'medium_id'	=> $medium_id,
+			    'price'	=> $price
+			    ];
+	$check		= $this->db->insert( 'featured', $to_insert );
+
+	if ( $check ) {
+	    $log->info( 'Featured photo. Photo id: %s. Medium id: %s. Price: %s', $photo_id, $medium_id, $price );
+	}
+	else {
+	    $log->error( 'OOPS! Curiously enough, insert query did not work.' );
+	}
+	$log->trace( 'Insert array: \n%s', print_r( $to_insert, true ) );
+
+	return (bool) $check;
     }
 
     function test_get()
