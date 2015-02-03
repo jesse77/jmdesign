@@ -11,10 +11,16 @@ class admin extends CI_Controller {
     function photos()
     {
 	$this->load->model('Photos');
+	$this->load->model('Featured');
+	$this->load->model('Mediums');
 	$this->load->model('Tags');
-	$data			= [];
-	$data['photos']		= $this->Photos->all(true);
-	$data['tags']		= $this->Tags->all();
+	
+	$data				= [];
+	$data['photos']			= $this->Photos->all(true);
+	$data['mediums']		= $this->Mediums->all();
+	$data['tags']			= $this->Tags->all();
+	$data['featured']		= $this->Featured->get();
+	$data['featured_medium'] 	= $this->Mediums->get( $data['featured']->medium_id );
 	$this->template->admin( 'admin/photos', $data );
     }
 
@@ -25,8 +31,23 @@ class admin extends CI_Controller {
 	echo json_encode( $photo );
 	return true;
     }
+
+    function feature_photo() {
+	$photo_id		= $this->input->post( 'photo_id' );
+	$medium_id		= $this->input->post( 'medium_id' );
+	$price			= $this->input->post( 'price' )*100;
+	echo $photo_id.'<br/>';
+	echo $medium_id.'<br/>';
+	echo $price.'<br/>';
+
+	$this->load->model( 'Featured' );
+	$this->Featured->feature_photo( $photo_id, $medium_id, $price );
+
+	redirect( 'admin/photos' );
+    }
     
-    function edit_photo() {
+    function edit_photo()
+    {
 	$this->load->model( 'Photos' );
 	
 	$data			= [];
@@ -35,10 +56,12 @@ class admin extends CI_Controller {
 	$data['comment']	= $this->input->post( 'comment' );
 	$data['tags']		= $this->input->post( 'tags' );
 	$this->Photos->edit( $id, $data );
+	
 	redirect( 'admin/photos' );
     }
     
-    function delete_photo() {
+    function delete_photo()
+    {
 	$this->load->model( 'Photos' );
 	$id			= $this->input->post( 'id' );
 	echo $id;
@@ -46,7 +69,8 @@ class admin extends CI_Controller {
 	redirect( 'admin/photos' );
     }
     
-    function toggle_active_photo( $id = null ) {
+    function toggle_active_photo( $id = null )
+    {
 	$this->load->model( 'Photos' );
 
 	if ( is_null( $id ) )
