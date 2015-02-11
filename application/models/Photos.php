@@ -111,6 +111,7 @@ class Photos extends CI_Model {
     {
 	$log			= $this->logging;
 	$this->load->model( 'Mediums' );
+	$this->load->model( 'Featured' );
 
 	if( empty( $data ) ) {
 	    $log->debug( "Empty cart; returning false" );
@@ -128,12 +129,18 @@ class Photos extends CI_Model {
 	    }, $data );
 
 	$items			= array_filter( $items );
+	$featured		= $this->Featured->get();
 
 	$subtotal		= 0;
 	$shipping		= 0;
 	$total			= 0;
 	
 	foreach( $items as $item ) {
+	    
+	    if( $item['medium']->id === $featured->medium->id ) {
+		
+	    }
+
 	    $subtotal		+= (int) ( $item['medium']->price );
 
 	    $shipping		+= (int) ( $item['medium']->shipping );
