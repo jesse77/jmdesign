@@ -188,10 +188,10 @@
             </button>
         </td>
         
-        <td class="<?= $ph->id == $featured->photo_id ? 'featured' :'' ?>">
-            <?php if($ph->id == $featured->photo_id): ?>
+        <td class="<?= $ph->id == $featured->photo->id ? 'featured' :'' ?>">
+            <?php if($ph->id == $featured->photo->id): ?>
             <span class="featured-details">
-     		    (<?= $featured_medium->name ?>/ $<?= currency($featured->price/100) ?>)
+     		(<?= $featured->medium->name ?>/ $<?= currency($featured->price/100) ?>)
             </span>
             <?php endif; ?>
         </td>

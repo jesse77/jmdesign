@@ -6,12 +6,20 @@ class Featured extends CI_Model {
     {
 	$log		= $this->logging;
 	$log->debug( 'Get featured image' );
+	$this->load->model( 'Photos' );
+	$this->load->model( 'Mediums' );
+
 	$query		= $this->db->query( "
   SELECT *
     FROM featured
    ORDER BY id desc" );
 
-	return $query->row();
+	$data		= $query->row();
+	
+	$featured	= (object) [ 'photo'	=> $this->Photos->get( $data->photo_id ),
+				     'medium'	=> $this->Mediums->get( $data->medium_id ),
+				     'price'	=> $data->price ];
+	return $featured;
     }
 
     function feature_photo( $photo_id = null, $medium_id = null, $price = null )

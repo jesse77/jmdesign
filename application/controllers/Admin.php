@@ -20,7 +20,6 @@ class admin extends CI_Controller {
 	$data['mediums']		= $this->Mediums->all();
 	$data['tags']			= $this->Tags->all();
 	$data['featured']		= $this->Featured->get();
-	$data['featured_medium'] 	= $this->Mediums->get( $data['featured']->medium_id );
 	$this->template->admin( 'admin/photos', $data );
     }
 
