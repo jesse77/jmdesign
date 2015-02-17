@@ -31,8 +31,7 @@ class admin extends CI_Controller {
 	return true;
     }
 
-    function feature_photo()
-    {
+    function feature_photo() {
 	$photo_id		= $this->input->post( 'photo_id' );
 	$medium_id		= $this->input->post( 'medium_id' );
 	$price			= $this->input->post( 'price' )*100;
