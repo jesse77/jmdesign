@@ -22,7 +22,6 @@
             <th>Comment</th>
             <th>Date Added</th>
             <th></th>
-            <th></th>
         </tr>
         <?php foreach( $photos as $key => $ph ): ?>
         <tr data-row-id="<?= $ph->id ?>" >
@@ -167,5 +166,4 @@
         $( '#feature-photo-example' ).attr('src', url);
         $( '#feature-photo-modal [name = "photo_id"]' ).val( id );
     } );
-    
 </script>
