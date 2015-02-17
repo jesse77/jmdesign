@@ -15,7 +15,11 @@ class Featured extends CI_Model {
    ORDER BY id desc" );
 
 	$data		= $query->row();
-
+	if( ! $data ) {
+	    $log->error( 'No featured image found; return false' );
+	    return false;
+	}
+	    
 	$featured	= (object) [ 'photo'	=> $this->Photos->get( $data->photo_id ),
 				     'medium'	=> $this->Mediums->get( $data->medium_id ),
 				     'price'	=> $data->price ];
