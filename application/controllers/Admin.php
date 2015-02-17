@@ -30,9 +30,7 @@ class admin extends CI_Controller {
 	echo json_encode( $photo );
 	return true;
     }
-
-    function feature_photo()
-    {
+    function feature_photo() {
 	$photo_id		= $this->input->post( 'photo_id' );
 	$medium_id		= $this->input->post( 'medium_id' );
 	$price			= $this->input->post( 'price' )*100;
