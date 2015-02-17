@@ -1,1 +1,0 @@
-vagrant@debian-8-amd64.vagrantup.com.3015:1424113244

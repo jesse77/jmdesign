@@ -22,23 +22,23 @@
             <td><?= $item['photo']->title ?></td>
             <td><?= $item['medium']->name ?></td>
             <td>$<?= currency( $item['featured_price'] ? $item['featured_price']/100 : $item['medium']->price/100 ) ?></td>
-            <td>$<?= $item['medium']->shipping/100 ?>.00</td>
+            <td>$<?= currency( $item['medium']->shipping/100 ?>)</td>
         </tr>
         <?php endforeach; ?>
         <tr>
             <td colspan="4"></td>
             <td>Subtotal</td>
-            <td>$<?= $cart['subtotal']/100 ?>.00</td>
+            <td>$<?= currency( $cart['subtotal']/100 ) ?></td>
         </tr>
         <tr>
             <td colspan="4"></td>
             <td>Shipping</td>
-            <td>$<?= $cart['shipping']/100 ?>.00</td>
+            <td>$<?= currency( $cart['shipping']/100 )?></td>
         </tr>
         <tr>
             <td colspan="4"></td>
             <td>Total</td>
-            <td>$<?= $cart['total']/100 ?>.00</td>
+            <td>$<?= currency( $cart['total']/100 ) ?></td>
         </tr>
     </table>
 
