@@ -15,7 +15,6 @@ class Template extends CI_Model {
 	    : 'home';
 	$d				= [ 'data'	=> $data,
 					    'view'	=> $view ];
-	$log->info( 'Loading page with data: \n %s', print_r( $d, true ) );
 	$this->load->view( 'template',	$d );
     }
 

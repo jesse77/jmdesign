@@ -1,4 +1,11 @@
 
+function currency( n ) {
+    if( typeof n !== 'number' )
+        return false;
+
+    return n.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
 function update_cart_count() {
     if( Cart.items ) {
         $( '.cart-count' )

@@ -61,7 +61,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
+        <div>
             <?php if( $this->input->get( 'error' ) ): ?>
             <div class="alert alert-danger">
                 <?= $this->input->get('error'); ?>
