@@ -59,34 +59,35 @@
     </div>
 </div>
 
-<h1>Tags
-    <button type="button" class="btn btn-success btn-lg pull-right" id="add-tag">
-        <b>add</b>
-    </button>
-</h1>
+<div class="col-md-12">
+    <h1>Tags
+        <button type="button" class="btn btn-success btn-lg pull-right" id="add-tag">
+            <b>add</b>
+        </button>
+    </h1>
 
-<table class="table table-striped table-condensed">
-    <?php foreach( $tags as $key => $tag ): ?>
-    <tr>
-        <td><?= $tag->id ?></td>
-        <td><?= $tag->name ?></td>
-        <td class="col-xs-2">
-            <form method="post" action="<?= site_url('admin/delete_tag') ?>" class="pull-right">
-                <input type="hidden" name="id" value="<?= $tag->id ?>" />
-                <input type="submit" data-id="<?= $tag->id ?>" value="Confirm Delete" 
-                       class="btn btn-danger btn-sm invisible confirm-delete" />
-            <input type="button" data-id="<?= $tag->id ?>"
-                   class="btn btn-default btn-sm start-delete" value="Delete" />
-            </form>
-        </td>
-        <td class="col-xs-1">
-            <input type="button" class="btn btn-warning btn-sm edit-tag-btn" value="Edit"
-                   data-id="<?= $tag->id ?>" data-name="<?= $tag->name ?>" />
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
-
+    <table class="table table-striped table-condensed">
+        <?php foreach( $tags as $key => $tag ): ?>
+        <tr>
+            <td><?= $tag->id ?></td>
+            <td><?= $tag->name ?></td>
+            <td class="col-xs-2">
+                <form method="post" action="<?= site_url('admin/delete_tag') ?>" class="pull-right">
+                    <input type="hidden" name="id" value="<?= $tag->id ?>" />
+                    <input type="submit" data-id="<?= $tag->id ?>" value="Confirm Delete" 
+                           class="btn btn-danger btn-sm invisible confirm-delete" />
+                    <input type="button" data-id="<?= $tag->id ?>"
+                           class="btn btn-default btn-sm start-delete" value="Delete" />
+                </form>
+            </td>
+            <td class="col-xs-1">
+                <input type="button" class="btn btn-warning btn-sm edit-tag-btn" value="Edit"
+                       data-id="<?= $tag->id ?>" data-name="<?= $tag->name ?>" />
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 <script type="text/javascript">
     $('#add-tag').on('click', function() {
         $('#add-tag-modal').modal();

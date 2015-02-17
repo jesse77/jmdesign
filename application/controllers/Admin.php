@@ -31,7 +31,8 @@ class admin extends CI_Controller {
 	return true;
     }
 
-    function feature_photo() {
+    function feature_photo()
+    {
 	$photo_id		= $this->input->post( 'photo_id' );
 	$medium_id		= $this->input->post( 'medium_id' );
 	$price			= $this->input->post( 'price' )*100;
@@ -43,6 +44,12 @@ class admin extends CI_Controller {
 	$this->Featured->feature_photo( $photo_id, $medium_id, $price );
 
 	redirect( 'admin/photos' );
+    }
+
+    function cancel_featured()
+    {
+	$this->load->model( 'Featured' );
+	$this->Featured->feature_photo( 0, 0, 0 );
     }
     
     function edit_photo()

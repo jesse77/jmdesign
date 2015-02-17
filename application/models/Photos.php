@@ -69,6 +69,11 @@ class Photos extends CI_Model {
 	$select			= sprintf( $this->select_query, $where );
 	$query			= $this->db->query( $select );
 	$photo			= $query->row();
+	
+	if( ! $photo ) {
+	    $log->error( 'Photo with id %s was not found; return false', $id );
+	    return false;
+	}
 
 	$photo->tags	= explode( ',', $photo->tags );
 	
@@ -113,6 +118,11 @@ class Photos extends CI_Model {
 	$this->load->model( 'Mediums' );
 	$this->load->model( 'Featured' );
 
+	if( ! is_array( $data ) ) {
+	    $log->error( '{data} was not an array: %s; return false.', print_r( $data, true ) );
+	    return false;
+	}
+	
 	if( empty( $data ) ) {
 	    $log->debug( "Empty cart; returning false" );
 	    return false;
@@ -135,17 +145,19 @@ class Photos extends CI_Model {
 	$shipping		= 0;
 	$total			= 0;
 	
-	foreach( $items as $item ) {
+	foreach( $items as $key => $item ) {
 	    
-	    if( $item['medium']->id === $featured->medium->id ) {
-		
+	    if( $item['medium']->id	=== $featured->medium->id
+		&& $item['photo']->id	=== $featured->photo->id ) {
+		$subtotal		+= (int) ( $featured->price );
+		$total			+= (int) ( $featured->price );
+		$items[$key]['featured_price']	= $featured->price;
 	    }
-
-	    $subtotal		+= (int) ( $item['medium']->price );
-
+	    else {
+		$subtotal	+= (int) ( $item['medium']->price );
+		$total		+= (int) ( $item['medium']->price );
+	    }
 	    $shipping		+= (int) ( $item['medium']->shipping );
-
-	    $total		+= (int) ( $item['medium']->price );
 	    $total		+= (int) ( $item['medium']->shipping );
 	};
 	
@@ -476,15 +488,57 @@ class Photos extends CI_Model {
 						      ]
 					    ];
 
-	$test_name                      = "<b>Fails when given empty value.</b>";
-	$test                           = $this->cart( null );
-	$expected                       = 'is_false';
-	$this->unit->run( $test, $expected, $test_name );
+	$test_cart			= $this->cart( $cart );
 
-	$test_name                      = "<b>Fails when given empty value.</b>";
-	$test                           = $this->cart( $cart );
+	$test_name                      = "<b>Returns array when given expected browser cart.</b>";
+	$test                           = $test_cart;
 	$expected                       = 'is_array';
 	$this->unit->run( $test, $expected, $test_name );
+
+	
+	$test_name                      = "<b>Result contains items array</b>";
+	$test                           = $test_cart['items'];
+	$expected                       = 'is_array';
+	$this->unit->run( $test, $expected, $test_name );
+
+	foreach( [ 'shipping', 'subtotal', 'total'] as $key => $val ) {
+	    $test_name                      = "<b>Result contains " . $val . " integer</b>";
+	    $test                           = $test_cart[ $val ];
+	    $expected                       = 'is_int';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	/* Featured Tests */
+	$featured			= $this->Featured->get();
+	$featured_object		= (object) [ 'medium_id'	=> $featured->medium->id,
+						     'photo_id'		=> $featured->photo->id ];
+	$featured_cart			= $cart;
+	$featured_cart[]		= $featured_object;
+
+	$test_name                      = "<b>When featured photo is in cart, it gets a [featured_price] attribute.</b>";
+	$feature_test			= $this->cart( $featured_cart );
+	$test				= false;
+	foreach( $feature_test['items'] as $item )
+	    if( isset( $item['featured_price'] ) )
+		$test			= true;
+	$expected                       = 'is_true';
+	$this->unit->run( $test, $expected, $test_name );
+	/* End Featured Tests */
+	
+	/* Fail Mode tests */
+	$fail_types			= [ null,
+					    "This will fail",
+					    123,
+					    (object) [ 'this'=>'will fail' ] ];
+	foreach( $fail_types as $key => $val ) {
+	    $test_name                      = sprintf( "<b>FAIL MODE: Fails when given {%s} value.</b>", gettype( $val ) );
+	    $test                           = $this->cart( $val );
+	    $expected                       = 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+	/* End Fail Mode Tests */
+
+
     }
     
     function test_limit()

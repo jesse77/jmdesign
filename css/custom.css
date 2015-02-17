@@ -71,14 +71,8 @@ table.featured-select tr:hover td {
   cursor: default;
 }
 
-.graphic-select-group .graphic-select {
-  padding: 15px;
-  margin: 5px;
-  background: white;
-  border: #888 1px solid;
-}
-
-.graphic-select-group .graphic-select:hover {
+.select-table tr.selected td,
+.select-table tr:hover td {
   color: white;
   cursor: pointer;
   background: #666;
