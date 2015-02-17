@@ -22,7 +22,6 @@
             <th>Comment</th>
             <th>Date Added</th>
             <th></th>
-            <th></th>
         </tr>
         <?php foreach( $photos as $key => $ph ): ?>
         <tr data-row-id="<?= $ph->id ?>" >
@@ -166,18 +165,5 @@
         var url			= "<?= PHOTO_URL ?>/" + id +'/small.jpg'
         $( '#feature-photo-example' ).attr('src', url);
         $( '#feature-photo-modal [name = "photo_id"]' ).val( id );
-    } );
-    
-    $( '#pick-featured' ).on( 'click', function() {
-        window.featured_select_mode	= ! window.featured_select_mode;
-        var featured_mode	= window.featured_select_mode;
-        var text		= featured_mode
-            ? 'cancel' : "pick featured" ;
-        
-        $( 'table#photos-table' ).toggleClass( 'featured-select', featured_mode );
-
-        console.log('mode', featured_mode );
-        console.log('text', text);
-        $( this ).html( text );
     } );
 </script>
