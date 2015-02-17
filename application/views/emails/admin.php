@@ -18,9 +18,10 @@
         <?php foreach( $cart['items'] as $item ): ?>
         <tr>
             <td><?= $item['photo']->id ?></td>
+            <td><?= $item['featured_price'] ? 'FEATURED': '' ?></td>
             <td><?= $item['photo']->title ?></td>
             <td><?= $item['medium']->name ?></td>
-            <td>$<?= $item['medium']->price/100 ?>.00</td>
+            <td>$<?= currency( $item['featured_price'] ? $item['featured_price']/100 : $item['medium']->price/100 ) ?></td>
             <td>$<?= $item['medium']->shipping/100 ?>.00</td>
         </tr>
         <?php endforeach; ?>
