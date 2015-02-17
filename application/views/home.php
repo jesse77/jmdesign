@@ -4,6 +4,78 @@
         <ul>
             <!-- THE FIRST SLIDE -->
             
+            <?php if( $featured ): ?>
+            <li data-slotamount="1" data-masterspeed="300" data-transition="fade"
+                style="text-shadow: black 1px 1px 3px;">
+                <div class="slotholder">
+                    <img src="img/slider/bg5.jpg"
+                         data-fullwidthcentering="on" alt="JMdesign">
+                </div>
+                
+                <div class="h2 caption lfl tp-caption start" style="z-index:100"
+                     data-x="210"
+                     data-y="80"
+                     data-speed="1500"
+                     data-endspeed="800"
+                     data-start="1000"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    Check out the
+                </div>
+                <div class="h1 caption lfl tp-caption start" style="z-index:100"
+                     data-x="240"
+                     data-y="120"
+                     data-speed="1500"
+                     data-endspeed="800"
+                     data-start="1200"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    Featured Photo!
+                </div>
+                <div class="caption h1 lfl tp-caption start" style="z-index:100"
+                     data-x="210"
+                     data-y="240"
+                     data-speed="1000"
+                     data-endspeed="800"
+                     data-start="2000"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                        <?= $featured->photo->title ?>
+                </div>
+                <div class="caption h1 lfl tp-caption start" style="z-index:100"
+                     data-x="240"
+                     data-y="280"
+                     data-speed="1000"
+                     data-endspeed="800"
+                     data-start="2500"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    <?= $featured->medium->name ?>
+                </div>
+                <div class="caption h1 lfl tp-caption start" style="z-index:100"
+                     data-x="270"
+                     data-y="320"
+                     data-speed="1000"
+                     data-endspeed="800"
+                     data-start="3000"
+                     data-easing="easeOutQuint"
+                     data-endeasing="easeOutQuint">
+                    <b>$<?= currency( $featured->price /100 ) ?></b>
+                    <a class="add-featured-to-cart" href="#">
+                        Get It Now
+                    </a>
+                </div>
+                <div class="caption fade text-right" style="z-index:99"
+                     data-x="650"
+                     data-y="30"
+                     data-speed="300"
+                     data-start="1400"
+                     data-easing="easeOutExpo">
+                    <img src="<?= PHOTO_URL . $featured->photo->id ?>/medium.jpg"
+                         alt="Jesses Featured" class="img-thumbnail" style="max-height: 400px">
+                </div>
+            </li>
+            <?php endif; ?>
             <li data-delay="6000" data-masterspeed="300" data-transition="fade">
                 <div class="slotholder"><img src="img/slider/bg1.jpg"
                                              data-fullwidthcentering="on" alt="JMdesign"></div>
@@ -63,7 +135,7 @@
                         Me</a>
                 </div>
             </li>
-            
+            <!-- Featured Slide -->
             <!-- THE RESPONSIVE SLIDE -->
             <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
                 <img src="img/slider/bg2.jpg" data-fullwidthcentering="on" alt="JMDesign">
@@ -681,6 +753,15 @@
         </div>
     </div>
 </div>
-<!-- Our Clients End -->  
-</div>
-<!-- Content End -->
+
+<!-- Our Clients End -->
+<script type="text/javascript">
+    var featured	= <?= json_encode( $featured ) ?>;
+    $('.add-featured-to-cart').on( 'click', function(e) {
+        e.preventDefault();
+        Cart.add( featured.photo.id, featured.medium.id );
+        update_cart_count();
+        console.log( "Featured", featured.photo.id, featured.medium.id );
+        location.replace( base_url + 'order' );
+    });
+</script>

@@ -5,7 +5,7 @@ class Featured extends CI_Model {
     function get()
     {
 	$log		= $this->logging;
-	$log->debug( 'Get featured image' );
+	$log->trace( 'Get featured image' );
 	$this->load->model( 'Photos' );
 	$this->load->model( 'Mediums' );
 
@@ -15,10 +15,17 @@ class Featured extends CI_Model {
    ORDER BY id desc" );
 
 	$data		= $query->row();
-	
+
 	$featured	= (object) [ 'photo'	=> $this->Photos->get( $data->photo_id ),
 				     'medium'	=> $this->Mediums->get( $data->medium_id ),
 				     'price'	=> $data->price ];
+	$log->trace( "Featured photo: \n%s", print_r( $featured, true) );
+	foreach( $featured as $key => $val ) {
+	    if( ! $val ) {
+		$log->error( 'Missing %s value in featured object; exiting with false.', $key );
+		return false;
+	    }
+	}
 	return $featured;
     }
 

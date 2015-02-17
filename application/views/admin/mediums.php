@@ -85,45 +85,46 @@
     </div>
 </div>
 
-<h1>Mediums
-    <button type="button" class="btn btn-success btn-lg pull-right" id="add-medium">
-        <b>add</b>
-    </button>
-</h1>
-
-<table class="table table-striped table-condensed">
-    <thead>
+<div class="col-md-12">
+    <h1>Mediums
+        <button type="button" class="btn btn-success btn-lg pull-right" id="add-medium">
+            <b>add</b>
+        </button>
+    </h1>
+    
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Shipping</th>
+            </tr>
+        </thead>
+        <?php foreach( $mediums as $key => $medium ): ?>
         <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Shipping</th>
+            <td><?= $medium->id ?></td>
+            <td><?= $medium->name ?></td>
+            <td>$<?= $medium->price / 100 ?>.00</td>
+            <td>$<?= $medium->shipping / 100 ?>.00</td>
+            <td class="col-xs-2">
+                <form method="post" action="<?= site_url('admin/delete_medium') ?>" class="pull-right">
+                    <input type="hidden" name="id" value="<?= $medium->id ?>" />
+                    <input type="submit" data-id="<?= $medium->id ?>" value="Confirm Delete" 
+                           class="btn btn-danger btn-sm invisible confirm-delete" />
+                    <input type="button" data-id="<?= $medium->id ?>"
+                           class="btn btn-default btn-sm start-delete" value="Delete" />
+                </form>
+            </td>
+            <td class="col-xs-1">
+                <input type="button" class="btn btn-warning btn-sm edit-medium-btn" value="Edit"
+                       data-id="<?= $medium->id ?>" data-name="<?= $medium->name ?>"
+                       data-shipping="<?= $medium->shipping / 100 ?>" data-price="<?= $medium->price / 100 ?>" />
+            </td>
         </tr>
-    </thead>
-    <?php foreach( $mediums as $key => $medium ): ?>
-    <tr>
-        <td><?= $medium->id ?></td>
-        <td><?= $medium->name ?></td>
-        <td>$<?= $medium->price / 100 ?>.00</td>
-        <td>$<?= $medium->shipping / 100 ?>.00</td>
-        <td class="col-xs-2">
-            <form method="post" action="<?= site_url('admin/delete_medium') ?>" class="pull-right">
-                <input type="hidden" name="id" value="<?= $medium->id ?>" />
-                <input type="submit" data-id="<?= $medium->id ?>" value="Confirm Delete" 
-                       class="btn btn-danger btn-sm invisible confirm-delete" />
-            <input type="button" data-id="<?= $medium->id ?>"
-                   class="btn btn-default btn-sm start-delete" value="Delete" />
-            </form>
-        </td>
-        <td class="col-xs-1">
-            <input type="button" class="btn btn-warning btn-sm edit-medium-btn" value="Edit"
-                   data-id="<?= $medium->id ?>" data-name="<?= $medium->name ?>"
-                   data-shipping="<?= $medium->shipping / 100 ?>" data-price="<?= $medium->price / 100 ?>" />
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
-
+        <?php endforeach; ?>
+    </table>
+</div>
 <script type="text/javascript">
     $('#add-medium').on('click', function() {
         $('#add-medium-modal').modal();
