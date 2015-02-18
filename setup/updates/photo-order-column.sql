@@ -1,0 +1,2 @@
+ALTER TABLE photos
+  ADD COLUMN position	INTEGER		DEFAULT NULL;

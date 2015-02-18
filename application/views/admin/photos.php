@@ -13,52 +13,58 @@
         </button>
     </h1>
     <table class="table table-striped table-align-middle" id="photos-table">
-        <tr>
-            <th>id</th>
-            <th style="width: 80px;"></th>
-            <th style="width: 80px"></th>
-            <th>Title</th>
-            <th>Tags</th>
-            <th>Comment</th>
-            <th>Date Added</th>
-            <th></th>
-        </tr>
-        <?php foreach( $photos as $key => $ph ): ?>
-        <tr data-row-id="<?= $ph->id ?>" >
-            <td><?= $ph->id ?></td>
-            <td>
-                <img src="<?= PHOTO_URL.$ph->id ?>/xsmall.jpg" style="height: 50px" alt="" />
-            </td>
-            <td>
-                <button type="button" data-id="<?= $ph->id ?>"
-                        class="btn btn-success btn-xs toggle-active-photo
-                               <?= $ph->active ? '' : 'hidden' ?>" >
-                    <b>active</b>
-                </button>
-                <button type="button" data-id="<?= $ph->id ?>"
-                        class="btn btn-default btn-xs toggle-active-photo
-                               <?= $ph->active ? 'hidden' : '' ?>" >
-                    <b>inactive</b>
-                </button>
-            </td>
-            
-            <td><?= $ph->title ?></td>
-            <td><?= implode( $ph->tags, ', ' ) ?></td>
-            <td><?= substr( $ph->comment, 0, 50) ?>...</td>
-            <td><?= $ph->timestamp ?></td>
-            <td class="col-xs-3">
-                <input type="button" class="btn btn-warning btn-sm edit-photo-btn pull-right"
-                       value="Edit" data-id="<?= $ph->id ?>" style="margin-left:5px"/>
-                <form method="post" action="<?= site_url('admin/delete_photo') ?>" class="pull-right">
-                    <input type="hidden" name="id" value="<?= $ph->id ?>" />
-                    <input type="submit" data-id="<?= $ph->id ?>" value="R U Sure?" 
-                           class="btn btn-danger btn-sm invisible confirm-delete" />
-                    <input type="button" data-id="<?= $ph->id ?>"
-                           class="btn btn-default btn-sm start-delete" value="Delete" />
-                </form>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+        <thead>
+            <tr>
+                <th style="width: 20px">position</th>
+                <th style="width: 80px;"></th>
+                <th style="width: 80px"></th>
+                <th>Title</th>
+                <th>Tags</th>
+                <th>Comment</th>
+                <th>Date Added</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach( $photos as $key => $ph ): ?>
+            <tr data-row-id="<?= $ph->id ?>" >
+                <td class="text-center">
+                    <input class="secret-input photo-position" style="width:100%" data-value="<?= $ph->id ?>" value="<?= $ph->position ?>" />
+                </td>
+                <td>
+                    <img src="<?= PHOTO_URL.$ph->id ?>/xsmall.jpg" style="height: 50px" alt="" />
+                </td>
+                <td>
+                    <button type="button" data-id="<?= $ph->id ?>"
+                            class="btn btn-success btn-xs toggle-active-photo
+                                   <?= $ph->active ? '' : 'hidden' ?>" >
+                        <b>active</b>
+                    </button>
+                    <button type="button" data-id="<?= $ph->id ?>"
+                            class="btn btn-default btn-xs toggle-active-photo
+                                   <?= $ph->active ? 'hidden' : '' ?>" >
+                        <b>inactive</b>
+                    </button>
+                </td>
+                
+                <td><?= $ph->title ?></td>
+                <td><?= implode( $ph->tags, ', ' ) ?></td>
+                <td><?= substr( $ph->comment, 0, 50) ?>...</td>
+                <td><?= $ph->timestamp ?></td>
+                <td class="col-xs-3">
+                    <input type="button" class="btn btn-warning btn-sm edit-photo-btn pull-right"
+                           value="Edit" data-id="<?= $ph->id ?>" style="margin-left:5px"/>
+                    <form method="post" action="<?= site_url('admin/delete_photo') ?>" class="pull-right">
+                        <input type="hidden" name="id" value="<?= $ph->id ?>" />
+                        <input type="submit" data-id="<?= $ph->id ?>" value="R U Sure?" 
+                               class="btn btn-danger btn-sm invisible confirm-delete" />
+                        <input type="button" data-id="<?= $ph->id ?>"
+                               class="btn btn-default btn-sm start-delete" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
     </table>
 </div>
 <?php if( $featured ): ?>
@@ -83,6 +89,27 @@
 </div>
 <?php endif; ?>
 <script type="text/javascript">
+    $(window).unload( function() {
+        console.log('hey your leaving')
+        $(':focus').blur();
+    } );
+
+    $('.photo-position').on( 'focusout', function() {
+        // Send a request to change the position of this photo
+        var id		= $(this).attr('data-value');
+        $.ajax( {
+            url: "<?= site_url('admin/change_photo_position') ?>/" + id +'/' + $(this).val() ,
+            type: 'POST',
+            success: function() {
+                console.log( 'Toggled active' );
+                // location.reload();
+            },
+            error: function(a,b,c) {
+                console.log( ['Did not work...', a,b,c ]);
+            }
+        } )
+    } )
+
     $('.toggle-active-photo').on('click', function() {
         if( window.featured_select_mode )
             return;
