@@ -84,6 +84,20 @@ class admin extends CI_Controller {
 	redirect( 'admin/photos' );
     }
     
+    function change_photo_position( $id = null, $position = null )
+    {
+	$this->load->model( 'Photos' );
+
+	if ( is_null( $id ) )
+	    $id			= $this->input->get_post( 'id' );
+
+	if ( is_null( $position ) )
+	    $position		= $this->input->get_post( 'position' );
+
+	$this->Photos->change_position( $id, $position );
+	redirect( 'admin/photos' );
+    }
+    
     // Save image that was uploaded to web.
     //     - Create new directory from sql id
     //       and save original image, thumbnail image,

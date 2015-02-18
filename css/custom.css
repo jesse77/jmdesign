@@ -77,3 +77,8 @@ table.featured-select tr:hover td {
   cursor: pointer;
   background: #666;
 }
+
+.secret-input {
+  border: 0;
+  background: transparent;
+}

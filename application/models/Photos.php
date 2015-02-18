@@ -18,6 +18,7 @@ class Photos extends CI_Model {
       AS tag_names
       ON p.id = tag_names.photo_id
         %s
+   ORDER BY position desc
 ";
     }
 
@@ -80,6 +81,17 @@ class Photos extends CI_Model {
 	$log->debug( 'Found %s tags for image %s', count( $photo->tags ), $id );
 	$log->trace( 'Tags: %s', print_r( $photo->tags, true ) );
 	return $photo;
+    }
+
+    function next_position()
+    {
+	$log			= $this->logging;
+	
+	$select			= "SELECT position FROM photos ORDER BY position desc";
+	$query			= $this->db->query( $select );
+	$result			= $query->row();
+
+	return $result->position+1;
     }
 
     function get_multiple( $ids )
@@ -203,7 +215,8 @@ class Photos extends CI_Model {
 	}
 
 	$image_data		= [ 'title'	=> $image_info['title'],
-				    'comment'	=> $image_info['comment'] ];
+				    'comment'	=> $image_info['comment'],
+				    'position'	=> $this->next_position() ];
 	
 	$log->info('Saving image to database.');
 	$this->db->insert( 'photos', $image_data );
@@ -417,6 +430,26 @@ class Photos extends CI_Model {
 
 	$this->db->where( [ 'id' => $id ] );
 	$this->db->update( 'photos', ['active' => ( ! $photo->active ) ] );
+    }
+
+    function change_position( $id = null, $position = null )
+    {
+	$log			= $this->logging;
+
+	if ( is_null( $id ) ) {
+	    $log->error( 'No id found... return false', gettype( $id ) );
+	    return false;
+	}
+
+	if ( is_null( $position ) ) {
+	    $log->error( 'No position found... return false', gettype( $position ) );
+	    return false;
+	}
+
+	$photo			= $this->get( $id );
+
+	$this->db->where( [ 'id' => $id ] );
+	$this->db->update( 'photos', ['position' => $position ] );
     }
 
     // 
