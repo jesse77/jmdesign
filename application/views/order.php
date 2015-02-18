@@ -15,6 +15,9 @@
         </p>
         <?php endif; ?>
         <div class="col-md-12 hidden order-body">
+            <p class="alert alert-info">
+                ** When purchasing digital versions of photos, you will be sent digital file after payment. Please allow up to 24 hours for delivery
+            </p>
             <table class="table table-striped table-align-middle">
                 <thead>
                     <tr>
@@ -63,6 +66,7 @@
         </div>
     </div>
 </div>
+
 <div class="divider">
 </div>
 
