@@ -22,7 +22,7 @@
             <td><?= $item['photo']->title ?></td>
             <td><?= $item['medium']->name ?></td>
             <td>$<?= currency( $item['featured_price'] ? $item['featured_price']/100 : $item['medium']->price/100 ) ?></td>
-            <td>$<?= currency( $item['medium']->shipping/100 ?>)</td>
+            <td>$<?= currency( $item['medium']->shipping/100 )?></td>
         </tr>
         <?php endforeach; ?>
         <tr>
