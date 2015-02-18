@@ -23,7 +23,7 @@ class Testing extends CI_Controller {
     {
 	$log= $this->logging;
 
-	$models		= array( 'photos', 'orders' );
+	$models		= array( 'photos', 'orders', 'featured' );
 	$tests		= array();
 
 	foreach( $models as $model ) {
@@ -173,8 +173,9 @@ class Testing extends CI_Controller {
 				'String'=> 'red',
 				'Array'=> 'igreen',
 				'numeric'=> 'iblack',
+				'int'=> 'iblack',
 				'Float'=> 'ipurple',
-				'Integer'=> 'ipurple',
+				'Integer'=> 'ipurple'
 				);
 
 	$this->load->model( 'CLI_Colors', 'color' );
@@ -198,10 +199,10 @@ class Testing extends CI_Controller {
 		echo $color->string( sprintf( "    %s\n", $method ), 'gray' );
 
 		foreach( $tests as $test ) {
-		    $status= $color->string( $test['Result'].':',$category->color, '' );
-		    $name= $color->string( strip_tags( $test['Test Name'] ), 'igray' );
-		    $expected= $color->string( $test['Expected Datatype'],$type_color_map[$test['Expected Datatype']] );
-		    $result= $color->string( $test['Test Datatype'],$type_color_map[$test['Test Datatype']] );
+		    $status	= $color->string( $test['Result'].':',		$category->color, '' );
+		    $name	= $color->string( strip_tags( $test['Test Name'] ), 'igray' );
+		    $expected	= $color->string( $test['Expected Datatype'],	$type_color_map[$test['Expected Datatype']] );
+		    $result	= $color->string( $test['Test Datatype'],	$type_color_map[$test['Test Datatype']] );
 		    printf( "        %s %-120s%-20s%s\n",
 			    $status, $name, $expected, $result );
 		}

@@ -81,36 +81,48 @@
                 return false;
                 console.log('Empty cart.');
             }
-
             $.each( cart.items, function(index, item) {
+                var featured	= ( typeof item.featured_price !== 'undefined' )
+                var price	= featured
+                    ? ( item.featured_price	/ 100 )
+                    : ( item.medium.price	/ 100 )
+                price		= currency( price )
+                
                 table.append(
-                    $('<tr/>').append([
-                        $('<td/>').addClass('text-center')
-                            .append(
-                                $('<button/>')
-                                    .addClass( 'btn btn-danger btn-sm' )
-                                    .html( 'x' )
-                                    .click( function() {
-                                        Cart.remove(index);
-                                        location.reload();
-                                    } )
-                            ),
-                        $('<td/>')
-                            .append( $( '<img />' )
-                                     .attr( 'src', base_url + 'img/uploaded/' + item.photo.id + '/xsmall.jpg' )
-                                     .addClass( 'img-thumbnail' ) ),
-                        $('<td/>').html( item.medium.name ),
-                        $('<td/>').html( item.photo.title ),
-                        $('<td/>').html( '$' + item.medium.price / 100 + '.00 CAD' ),
-                    ] )
+                    $( '<tr/>' )
+                        .append([
+                            $( '<td/>' ).addClass( 'text-center' )
+                                .append(
+                                    $( '<button/>' )
+                                        .addClass( 'btn btn-danger btn-sm' )
+                                        .html( 'x' )
+                                        .click( function() {
+                                            Cart.remove( index );
+                                            location.reload();
+                                        } )
+                                ),
+                            $( '<td/>' )
+                                .append([ $( '<img />' )
+                                         .attr( 'src', base_url + 'img/uploaded/' + item.photo.id + '/xsmall.jpg' )
+                                         .addClass( 'img-thumbnail' ) ] ),
+                            $('<td/>').html( item.medium.name ),
+                            $('<td/>')
+                                .html( item.photo.title )
+                                .append( featured
+                                         ? $('<span />')
+                                         .addClass('label label-success break-left')
+                                         .html('Featured!')
+                                         : '' ),
+                            $('<td/>').html( '$' + price + ' CAD' ),
+                        ] )
                 )
             } );
-
-            $('.shipping-cell').html( '$' + cart.shipping / 100 + '.00 CAD' );
-            $('.subtotal-cell').html( '$' + cart.subtotal / 100 + '.00 CAD' );
-            $('.total-cell').html( '$' + cart.total / 100 + '.00 CAD' );
             
-            $('.order-body').removeClass('hidden');
+            $( '.shipping-cell' ).html( '$' + currency( cart.shipping/100 ) + ' CAD' );
+            $( '.subtotal-cell' ).html( '$' + currency( cart.subtotal/100 ) + ' CAD' );
+            $( '.total-cell' ).html( '$' + currency( cart.total/100 ) + ' CAD' );
+            
+            $( '.order-body' ).removeClass( 'hidden' );
             
             // Configure custom stripe button.
             var token		= <?= ENVIRONMENT === "production"

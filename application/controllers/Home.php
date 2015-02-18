@@ -6,7 +6,9 @@ class Home extends CI_Controller {
     {
 	$log			= $this->logging;
 	$this->load->model( 'Photos' );
+	$this->load->model( 'Featured' );
 	$data['examples']	= $this->Photos->limit( 0, 6 );
+	$data['featured']	= $this->Featured->get();
 	$this->template->load( 'home', $data );
     }
 }

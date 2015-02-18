@@ -17,8 +17,7 @@ class Photos extends CI_Model {
             GROUP BY photo_id )
       AS tag_names
       ON p.id = tag_names.photo_id
-%s
-   ORDER BY timestamp desc
+        %s
 ";
     }
 
@@ -65,11 +64,16 @@ class Photos extends CI_Model {
 	    return $this->get_multiple( $id );
 	}
 	
-	$where			= "WHERE id = " . $id;
+	$where			= "WHERE p.id = " . $id;
 	
 	$select			= sprintf( $this->select_query, $where );
 	$query			= $this->db->query( $select );
 	$photo			= $query->row();
+	
+	if( ! $photo ) {
+	    $log->error( 'Photo with id %s was not found; return false', $id );
+	    return false;
+	}
 
 	$photo->tags	= explode( ',', $photo->tags );
 	
@@ -92,7 +96,7 @@ class Photos extends CI_Model {
 	    return false;
 	}
 	
-	$where			= sprintf( "WHERE id IN (%s)", implode( $ids, ',' ) );
+	$where			= sprintf( "WHERE p.id IN (%s)", implode( $ids, ',' ) );
 	
 	$select			= sprintf( $this->select_query, $where );
 	$query			= $this->db->query( $select );
@@ -112,7 +116,13 @@ class Photos extends CI_Model {
     {
 	$log			= $this->logging;
 	$this->load->model( 'Mediums' );
+	$this->load->model( 'Featured' );
 
+	if( ! is_array( $data ) ) {
+	    $log->error( '{data} was not an array: %s; return false.', print_r( $data, true ) );
+	    return false;
+	}
+	
 	if( empty( $data ) ) {
 	    $log->debug( "Empty cart; returning false" );
 	    return false;
@@ -129,17 +139,26 @@ class Photos extends CI_Model {
 	    }, $data );
 
 	$items			= array_filter( $items );
+	$featured		= $this->Featured->get();
 
 	$subtotal		= 0;
 	$shipping		= 0;
 	$total			= 0;
 	
-	foreach( $items as $item ) {
-	    $subtotal		+= (int) ( $item['medium']->price );
-
+	foreach( $items as $key => $item ) {
+	    
+	    if( $featured &&
+		$item['medium']->id	=== $featured->medium->id
+		&& $item['photo']->id	=== $featured->photo->id ) {
+		$subtotal		+= (int) ( $featured->price );
+		$total			+= (int) ( $featured->price );
+		$items[$key]['featured_price']	= $featured->price;
+	    }
+	    else {
+		$subtotal	+= (int) ( $item['medium']->price );
+		$total		+= (int) ( $item['medium']->price );
+	    }
 	    $shipping		+= (int) ( $item['medium']->shipping );
-
-	    $total		+= (int) ( $item['medium']->price );
 	    $total		+= (int) ( $item['medium']->shipping );
 	};
 	
@@ -189,8 +208,8 @@ class Photos extends CI_Model {
 	$log->info('Saving image to database.');
 	$this->db->insert( 'photos', $image_data );
 
-	$log->trace( 'Image title:				%s', $image_info['title'] );
-	$log->trace( 'Image comment:			%s', $image_info['comment'] );
+	$log->trace( 'Image title:		%s', $image_info['title'] );
+	$log->trace( 'Image comment:		%s', $image_info['comment'] );
 
 	$image_id		= $this->db->insert_id();
 	if( is_array( $image_info['tags'] ) ) {
@@ -231,10 +250,26 @@ class Photos extends CI_Model {
 	    $log->error( '{src_img} is not a string, it is a %s', gettype( $src_img ) );
 	    return false;
 	}
+	
+	if( ! file_exists( $src_img ) ) {
+	    $log->error( '{src_img} does not exist; return false' );
+	    return false;
+	}
+	
+	if( ! is_numeric( $dst_width ) && ! is_null( $dst_width ) ) {
+	    $log->error( '{dst_width} is a %s; return false', gettype( $dst_width ) );
+	    return false;
+	}
+
+	if( ! is_numeric( $dst_height ) && ! is_null( $dst_height ) ) {
+	    $log->error( '{dst_height} is a %s; return false', gettype( $dst_height ) );
+	    return false;
+	}
 
 	$return_output		= true;
-
-	$image_type		= strtolower( pathinfo( $src_img, PATHINFO_EXTENSION ) );
+	$finfo			= finfo_open( FILEINFO_MIME_TYPE );
+	$image_type		= explode( '/', finfo_file( $finfo, $src_img ) )[1];
+	finfo_close($finfo);
 
 	$log->debug( 'Source image type: %s', $image_type );
 	
@@ -245,6 +280,7 @@ class Photos extends CI_Model {
 	}
 
 	$type_options		= [ 'gif', 'png', 'jpeg' ];
+
 	if ( ! in_array( $image_type, $type_options ) ) {
 	    $log->error( 'Invalid image type; Image type given: %s; Supported options: %s',
 			 $image_type, implode( $type_options, ', ' ) );
@@ -252,7 +288,7 @@ class Photos extends CI_Model {
 	}
 
 	$src_img		= call_user_func( 'imagecreatefrom' . $image_type, $src_img );
-
+	
 	$log->trace1("Source img: %s", print_r( $src_img ) );
 	$dst_img		= $src_img;
 	    
@@ -294,26 +330,31 @@ class Photos extends CI_Model {
 	// Create new image directory
 	$log->debug( 'Creating directory "%s".', $image_dir, $image_id );
 	$log->trace( '	Image uploaded: %s ', print_r( $image_file, true ) );
-	$old_umask		= umask(0);
-	mkdir( $image_dir );
-	umask($old_umask);
+	$old_umask		= umask( 0 );
+
+	if ( ! is_dir( $image_dir ) ) {
+	    mkdir( $image_dir );
+	}
+
+	umask( $old_umask );
 
 	// Upload files to image directory
 	$config['upload_path']		= $image_dir;
 	$config['file_name']		= 'original';
 	$config['allowed_types']	= 'gif|jpg|png';
-	$this->load->library('upload', $config);
 
-	if( ! $this->upload->do_upload('file') ) {
-	    $log->error( 'Image upload failed.' );
+	$original			= $this->resize_image( $image_file['tmp_name'] );
+	if( ! $original ) {
+	    $log->error( 'Image formatting did not work; return false.' );
 	    return false;
 	}
+	$log->trace( "Original: \n %s", print_r( $original, true ) );
 
-	$original			= $this->upload->data();
-	$xsmall				= $this->resize_image( $original['full_path'], 100 );
-	$small				= $this->resize_image( $original['full_path'], 260 );
-	$medium				= $this->resize_image( $original['full_path'], 800 );
-	$large				= $this->resize_image( $original['full_path'], min( 1500, $original['image_width'] ) );
+	$width				= imagesx( $original );
+	$xsmall				= $this->resize_image( $image_file['tmp_name'], min( 100, $width ) );
+	$small				= $this->resize_image( $image_file['tmp_name'], min( 260, $width ) );
+	$medium				= $this->resize_image( $image_file['tmp_name'], min( 800, $width ) );
+	$large				= $this->resize_image( $image_file['tmp_name'], min( 1500, $width ) );
 
 	imagejpeg( $xsmall, $image_dir	. '/xsmall.jpg' );
 	imagejpeg( $small, $image_dir	. '/small.jpg' );
@@ -448,15 +489,57 @@ class Photos extends CI_Model {
 						      ]
 					    ];
 
-	$test_name                      = "<b>Fails when given empty value.</b>";
-	$test                           = $this->cart( null );
-	$expected                       = 'is_false';
-	$this->unit->run( $test, $expected, $test_name );
+	$test_cart			= $this->cart( $cart );
 
-	$test_name                      = "<b>Fails when given empty value.</b>";
-	$test                           = $this->cart( $cart );
+	$test_name                      = "<b>Returns array when given expected browser cart.</b>";
+	$test                           = $test_cart;
 	$expected                       = 'is_array';
 	$this->unit->run( $test, $expected, $test_name );
+
+	
+	$test_name                      = "<b>Result contains items array</b>";
+	$test                           = $test_cart['items'];
+	$expected                       = 'is_array';
+	$this->unit->run( $test, $expected, $test_name );
+
+	foreach( [ 'shipping', 'subtotal', 'total'] as $key => $val ) {
+	    $test_name                      = "<b>Result contains " . $val . " integer</b>";
+	    $test                           = $test_cart[ $val ];
+	    $expected                       = 'is_int';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	/* Featured Tests */
+	$featured			= $this->Featured->get();
+	$featured_object		= (object) [ 'medium_id'	=> $featured->medium->id,
+						     'photo_id'		=> $featured->photo->id ];
+	$featured_cart			= $cart;
+	$featured_cart[]		= $featured_object;
+
+	$test_name                      = "<b>When featured photo is in cart, it gets a [featured_price] attribute.</b>";
+	$feature_test			= $this->cart( $featured_cart );
+	$test				= false;
+	foreach( $feature_test['items'] as $item )
+	    if( isset( $item['featured_price'] ) )
+		$test			= true;
+	$expected                       = 'is_true';
+	$this->unit->run( $test, $expected, $test_name );
+	/* End Featured Tests */
+	
+	/* Fail Mode tests */
+	$fail_types			= [ null,
+					    "This will fail",
+					    123,
+					    (object) [ 'this'=>'will fail' ] ];
+	foreach( $fail_types as $key => $val ) {
+	    $test_name                      = sprintf( "<b>FAIL MODE: Fails when given {%s} value.</b>", gettype( $val ) );
+	    $test                           = $this->cart( $val );
+	    $expected                       = 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+	/* End Fail Mode Tests */
+
+
     }
     
     function test_limit()
@@ -475,24 +558,160 @@ class Photos extends CI_Model {
     function test_save()
     {
 	$test_string			= "THIS IS FOR TESTING";
+	$file_fail_types		= [ null,
+					    "This will fail",
+					    [1,2,3],
+					    (object) [ 'this'=>'will fail' ] ];
 
 	$test_name                      = "<b>FAIL MODE: Null file name given</b>";
-	$test                           = $this->save();
+	$test                           = $this->save( null );
 	$expected                       = 'is_false';
 	$this->unit->run( $test, $expected, $test_name );
     }
 
+    function test_save_image_files()
+    {
+	$rand_string			= function( $length = null ) {
+	    $chars			= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ /\{}[]-+=!@#$%^&*()~`<>|.,';
+	    $string			= substr( str_shuffle( $chars ), 0, $length );
+	    return $string;
+	};
+
+	$image_types			= [ 'gif', 'jpeg', 'jpg', 'png' ];
+	$bad_image_types		= [ 'pdf', 'bmp' ];
+
+	$test_id			= 'test_id';
+	$testing_base_path		= FCPATH . "img/testing/test.";
+	$uploaded_base_path		= FCPATH . 'img/uploaded/' . $test_id;
+
+	$dummy_upload_data		= function( $file_type = null ) use( $testing_base_path, $rand_string ) {
+	    $length			= rand( 1, 50 );
+	    $file_path			= $testing_base_path . $file_type;
+	    $type			= @finfo_file( finfo_open( FILEINFO_MIME_TYPE ), $file_path );
+	    $data			= [ 'name'	=> 'Test_'. $rand_string( $length ),
+					    'type'	=> $type || 'image/'.$file_type,
+					    'tmp_name'	=> $file_path,
+					    'size'	=> @filesize( $file_path ) || rand( 300000, 1000000 ),
+					    'error'	=> 0 ];
+	    return $data;
+	};
+	
+	foreach( $image_types as $type ) {
+	    $test_name			= "<b>Can successfully save ." . $type . " files</b>";
+	    
+	    $this->save_image_files( $test_id, $dummy_upload_data( $type ) );
+	    
+	    $test			= file_exists( $uploaded_base_path . '/xsmall.jpg' )
+		&& file_exists( $uploaded_base_path . '/small.jpg' )
+		&& file_exists( $uploaded_base_path . '/medium.jpg' )
+		&& file_exists( $uploaded_base_path . '/large.jpg' );
+
+	    $expected			= 'is_true';
+	    $this->unit->run( $test, $expected, $test_name );
+
+	    // Remove the files that were just created.
+	    $test_name			= "<b>CLEANED UP previous .". $type ." upload test.";
+	    $files			= glob( $uploaded_base_path . '/*'); // get all file names
+	    foreach( $files as $file ) {
+		if( is_file( $file ) )
+		    unlink($file);
+	    }
+	    $test			= file_exists( $uploaded_base_path . '/xsmall.jpg' )
+		|| file_exists( $uploaded_base_path . '/small.jpg' )
+		|| file_exists( $uploaded_base_path . '/medium.jpg' )
+		|| file_exists( $uploaded_base_path . '/large.jpg' );
+
+	    $expected			= 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	foreach( $bad_image_types as $type ) {
+	    $test_name			= "<b>FAIL MODE: Will not save ." . $type . " files</b>";
+	    $this->save_image_files( $test_id, $dummy_upload_data( $type ) );
+	    $test			= file_exists( $uploaded_base_path . '/xsmall.jpg' )
+		|| file_exists( $uploaded_base_path . '/small.jpg' )
+		|| file_exists( $uploaded_base_path . '/medium.jpg' )
+		|| file_exists( $uploaded_base_path . '/large.jpg' );
+
+	    $expected			= 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	$test_name			= "<b>FAIL MODE: Can not save a file if it doesn't exist.</b>";
+	$type				= 'jepg';
+	$this->save_image_files( $test_id, $dummy_upload_data( $type ) );
+	$test			= file_exists( $uploaded_base_path . '/xsmall.jpg' )
+	    || file_exists( $uploaded_base_path . '/small.jpg' )
+	    || file_exists( $uploaded_base_path . '/medium.jpg' )
+	    || file_exists( $uploaded_base_path . '/large.jpg' );
+
+	$expected			= 'is_false';
+	$this->unit->run( $test, $expected, $test_name );
+	
+    }
+
     function test_resize_image()
     {
-	$test_name                      = "<b>Returns GD resource</b>";
-	$resource                       = $this->resize_image( FCPATH . 'img/logo.png', 100, 100 );
+	$src_img_fail_types		= [ null,
+					    "This will fail",
+					    [1,2,3],
+					    (object) [ 'this'=>'will fail' ] ];
+
+	$size_fail_types		= [ 'This will fail',
+					    [1,2,3],
+					    (object) [ 'this'=>'will fail' ] ];
+
+	$real_img_path			= FCPATH . 'img/logo.png';
+
+	foreach( $src_img_fail_types as $type ) {
+	    $print_type			= @( (string) $type )
+		? @( (string) $type )
+		: gettype($type);
+
+	    $test_name			= "<b>FAIL MODE: Image path is: ". $print_type ."</b>";
+	    $test			= $this->resize_image( $type, 100, 100 );
+	    $expected			= 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	foreach( $size_fail_types as $type ) {
+	    $print_type			= @( (string) $type )
+		? @( (string) $type )
+		: gettype($type);
+
+	    $test_name			= "<b>FAIL MODE: {dst_width} is: ". $print_type ."</b>";
+	    $test			= $this->resize_image( $real_img_path, $type, 100 );
+	    $expected			= 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	foreach( $size_fail_types as $type ) {
+	    $print_type			= @( (string) $type )
+		? @( (string) $type )
+		: gettype($type);
+
+	    $test_name			= "<b>FAIL MODE: {dst_height} is: ". $print_type ."</b>";
+	    $test			= $this->resize_image( $real_img_path, 100, $type );
+	    $expected			= 'is_false';
+	    $this->unit->run( $test, $expected, $test_name );
+	}
+
+	$test_name                      = "<b>Returns GD resource::: good image path, numeric width, numeric height</b>";
+	$resource                       = $this->resize_image( $real_img_path, 100, 100 );
 	$test				= get_resource_type( $resource ) === 'gd';
 	$expected                       = 'is_true';
 	$this->unit->run( $test, $expected, $test_name );
 
-	$test_name                      = "<b>FAIL MODE: Image path is null</b>";
-	$test                           = $this->resize_image( null, 100, 100 );
-	$expected                       = 'is_false';
+	$test_name                      = "<b>Returns GD resource::: good image path, null width, numeric height</b>";
+	$resource                       = $this->resize_image( $real_img_path, null, 100 );
+	$test				= get_resource_type( $resource ) === 'gd';
+	$expected                       = 'is_true';
+	$this->unit->run( $test, $expected, $test_name );
+
+	$test_name                      = "<b>Returns GD resource::: good image path, numeric width, null height</b>";
+	$resource                       = $this->resize_image( $real_img_path, 100, null );
+	$test				= get_resource_type( $resource ) === 'gd';
+	$expected                       = 'is_true';
 	$this->unit->run( $test, $expected, $test_name );
     }
 
