@@ -147,7 +147,8 @@ class Photos extends CI_Model {
 	
 	foreach( $items as $key => $item ) {
 	    
-	    if( $item['medium']->id	=== $featured->medium->id
+	    if( $featured &&
+		$item['medium']->id	=== $featured->medium->id
 		&& $item['photo']->id	=== $featured->photo->id ) {
 		$subtotal		+= (int) ( $featured->price );
 		$total			+= (int) ( $featured->price );
