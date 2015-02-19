@@ -8,7 +8,8 @@
 
         <meta name="description" content="Jesse Martineau, Edmonton, Alberta, Canada, Photographer, website, film">
         <meta name="author" content="jessemartineau.com">
-
+        <meta name="p:domain_verify" content="614c71f3d75d066cf20e44ca1baa7be2"/>
+        
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
